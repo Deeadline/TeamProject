@@ -14,16 +14,16 @@ public:
 		static GameManager instance;
 		return instance;
 	}
-	inline sf::RenderWindow& getWindow() { return window; }
-	inline Status getStatus() const { return gameStatus; }\
-		inline Level* getLevel() const { return currentLevel; }
+	inline sf::RenderWindow& getWindow() { return currentWindow; }
+	inline Status getStatus() const { return gameStatus; }
+	inline Level* getLevel() const { return currentLevel; }
 	void GameManager::runGame();
 private:
 	GameManager();
 	GameManager(const GameManager&) = delete;
 	void operator=(const GameManager&) = delete;
 
-	sf::RenderWindow window;
+	sf::RenderWindow currentWindow;
 	Status gameStatus;
 	Level* currentLevel;
 

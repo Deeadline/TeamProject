@@ -1,13 +1,13 @@
 #include "GameManager.hpp"
 
 GameManager::GameManager() : gameStatus(Status::initializing),
-	window(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close) {
+	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close) {
 
 }
 
 GameManager::~GameManager() {
-	if (window.isOpen())
-		window.close();
+	if (currentWindow.isOpen())
+		currentWindow.close();
 }
 void GameManager::runGame() {
 	gameStatus = Status::running;
@@ -18,15 +18,15 @@ void GameManager::runGame() {
 		float frameStartTime = gameClock.getElapsedTime().asSeconds();
 
 		sf::Event windowEvent;
-		while (window.pollEvent(windowEvent)) {
+		while (currentWindow.pollEvent(windowEvent)) {
 			if (windowEvent.type == sf::Event::Closed) {
 				gameStatus = Status::cleaningUp;
 			}
 		}
-		window.clear();
+		currentWindow.clear();
 		currentLevel->updateLevel(deltaTime);
 		currentLevel->draw();
-		window.display();
+		currentWindow.display();
 
 		deltaTime = gameClock.getElapsedTime().asSeconds() - frameStartTime;
 	}
