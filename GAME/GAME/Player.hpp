@@ -2,7 +2,7 @@
 #include "CharacterMechanic.hpp"
 #include "PlayerController.hpp"
 class PlayerController;
-class Player :public CharacterMechanic {
+class Player : public CharacterMechanic { // klasa do poruszania siê graczem.
 public:
 	Player(PlayerController *controller);
 	virtual ~Player();

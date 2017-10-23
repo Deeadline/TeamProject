@@ -1,7 +1,7 @@
 #pragma once
 #include "Includers.hpp"
 #include "Level.hpp"
-class GameManager {
+class GameManager { // g³ówna klasa gry
 public:
 	enum Status {
 		initializing = 0,

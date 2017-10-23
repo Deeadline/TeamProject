@@ -12,7 +12,7 @@ public:
 	static bool unLoad(const std::string &textureName);
 	static std::size_t cleanTexture();
 	static sf::Texture* getTexture(const std::string &textureName);
-	inline static bool existTexture(const std::string &textureName) { return TextureManager::getTexture(textureName) != nullptr; }
+	inline static bool isExistTexture(const std::string &textureName) { return TextureManager::getTexture(textureName) != nullptr; }
 private:
 	TextureManager();
 	TextureManager(const TextureManager &) = delete;

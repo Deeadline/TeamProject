@@ -1,7 +1,7 @@
 #pragma once
 #include "CharacterMechanic.hpp"
 
-class Level {
+class Level { //nasza scena/mapa na której wyœwietlamy wszystkie potrzebne obiekty.
 public:
 	Level();
 	~Level();

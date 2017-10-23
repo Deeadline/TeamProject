@@ -1,7 +1,7 @@
 #pragma once
 #include "Includers.hpp"
 #include "Math\Vector2.hpp"
-class CharacterMechanic {
+class CharacterMechanic { // klasa abstrakcyjna do wyœwietlenia gracza
 public:
 	inline CharacterMechanic() :rotation(0) {  }
 	inline virtual ~CharacterMechanic() {  }

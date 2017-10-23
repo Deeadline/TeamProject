@@ -1,7 +1,7 @@
 #pragma once
 #include "Player.hpp"
 
-class PlayerController {
+class PlayerController { // klasa do sterowania graczem
 public:
 	PlayerController();
 	virtual ~PlayerController();
@@ -9,6 +9,6 @@ public:
 	inline bool isPossesed() const { return owner != nullptr; }
 	friend class Player;
 private:
-	bool posses(Player *owner);
+	bool isPossesed(Player *owner);
 	Player* owner;
 };

@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(PlayerController *owner) :controller(nullptr) {
-	if (controller && controller->posses(this)) {
+	if (controller && controller->isPosses(this)) {
 		this->controller = controller;
 	}
 }
@@ -17,7 +17,7 @@ void Player::resetController(PlayerController *controller) {
 		if (this->controller) {
 			delete (this->controller);
 		}
-		if (controller && controller->posses(this)) {
+		if (controller && controller->isPosses(this)) {
 			this->controller = controller;
 		}
 		else {
