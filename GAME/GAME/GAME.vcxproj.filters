@@ -19,57 +19,66 @@
     <Filter Include="Header Files\Include">
       <UniqueIdentifier>{6c17dfc6-b5f4-4483-9c40-3e1e769bdb10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Source">
+      <UniqueIdentifier>{17c9c152-bbeb-42c1-b5ee-8b7386583544}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\GameManager.cpp">
+      <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Level.cpp">
+      <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\PlayerController.cpp">
+      <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\TextureManager.cpp">
+      <Filter>Source Files\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math\Definitions.hpp">
+    <ClInclude Include="Include\CharacterMechanic.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameManager.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Includers.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Level.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PercyJackson.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PercyJacksonController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Player.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PlayerController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TextureManager.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Math\Definitions.hpp">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector2.hpp">
+    <ClInclude Include="Include\Math\Vector2.hpp">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector3.hpp">
+    <ClInclude Include="Include\Math\Vector3.hpp">
       <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterMechanic.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerController.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Includers.hpp">
-      <Filter>Header Files\Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
