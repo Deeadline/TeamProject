@@ -8,8 +8,8 @@ PlayerController::~PlayerController() {
 
 }
 
-bool PlayerController::isPossesed(Player *owner) {
-	if (!owner) {
+bool PlayerController::isPossess(Player *owner) {
+	if (!this->owner) {
 		this->owner = owner;
 		return true;
 	}

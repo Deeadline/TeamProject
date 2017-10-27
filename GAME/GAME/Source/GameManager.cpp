@@ -1,10 +1,13 @@
 #include "..\Include\GameManager.hpp"
 #include "..\Include\TextureManager.hpp"
-
+#include "..\Include\PercyJackson.hpp"
 GameManager::GameManager() : gameStatus(Status::initializing),
 	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close),
-	currentLevel(new Level()) {
-	TextureManager::loadTexture("Sprite_Front", "../Release/Bomberman/Front/Bman_F_f00.png");
+	currentLevel(new Level()){
+	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedize tez wyliczana.
+	TextureManager::loadTexture("Sprite_Side", "../Release/Bomberman/Side/Bman_F_f00.png");
+	TextureManager::loadTexture("Sprite_Side1", "../Release/Bomberman/Side/Bman_F_f03.png");
+	TextureManager::loadTexture("Sprite_Side2", "../Release/Bomberman/Side/Bman_F_f07.png");
 }
 
 GameManager::~GameManager() {
@@ -15,15 +18,10 @@ GameManager::~GameManager() {
 }
 void GameManager::runGame() {
 	gameStatus = Status::running;
-	//PercyJackson percy = new PercyJackson();
-	// percy.setLocation(x,y);
-	// currentLevel->addCharacter(percy);
+	auto *player = new PercyJackson();
+	 currentLevel->addCharacter(player);
 	sf::Clock gameClock;
 	sf::Color backgroundColor(30, 30, 30);
-	sf::Sprite tempSprite;
-	tempSprite.setTexture(*(TextureManager::getTexture("Sprite_Front")));
-	tempSprite.setOrigin(32, 91);
-	tempSprite.setPosition(500, 500);
 	float deltaTime = 1 / 60.f;
 
 	while (gameStatus != Status::cleaningUp) {
@@ -39,7 +37,6 @@ void GameManager::runGame() {
 		currentWindow.clear(backgroundColor);
 		currentLevel->updateLevel(deltaTime);
 		currentLevel->draw();
-		GameManager::instance().getWindow().draw(tempSprite);
 		currentWindow.display();
 
 		deltaTime = gameClock.getElapsedTime().asSeconds() - frameStartTime;

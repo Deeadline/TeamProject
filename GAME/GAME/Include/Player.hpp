@@ -8,6 +8,6 @@ public:
 	virtual ~Player();
 	void resetController(PlayerController *controller);
 	virtual void update(const float &deltaTime);
-private:
+protected:
 	PlayerController* controller;
 };

@@ -9,6 +9,7 @@ public:
 	inline bool isPossesed() const { return owner != nullptr; }
 	friend class Player;
 private:
-	bool isPossesed(Player *owner);
+	bool isPossess(Player *owner);
+protected:
 	Player* owner;
 };
