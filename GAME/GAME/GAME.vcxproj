@@ -130,6 +130,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\GameManager.cpp" />
     <ClCompile Include="Source\Level.cpp" />
+    <ClCompile Include="Source\MenuManager.cpp" />
+    <ClCompile Include="Source\MenuManagerController.cpp" />
     <ClCompile Include="Source\PercyJackson.cpp" />
     <ClCompile Include="Source\PercyJacksonController.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -144,6 +146,8 @@
     <ClInclude Include="Include\Math\Definitions.hpp" />
     <ClInclude Include="Include\Math\Vector2.hpp" />
     <ClInclude Include="Include\Math\Vector3.hpp" />
+    <ClInclude Include="Include\MenuManager.hpp" />
+    <ClInclude Include="Include\MenuManagerController.hpp" />
     <ClInclude Include="Include\PercyJackson.hpp" />
     <ClInclude Include="Include\PercyJacksonController.hpp" />
     <ClInclude Include="Include\Player.hpp" />
