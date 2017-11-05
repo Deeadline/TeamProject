@@ -41,13 +41,13 @@ std::size_t Level::cleanLevel() {
 }
 
 void Level::updateLevel(const float &deltaTime) {
-	for (auto *character : charactersCollector) {
-		character->update(deltaTime);
+	for (auto i = 0u; i < charactersCollector.size();i++) {
+		charactersCollector[i]->update(deltaTime);
 	}
 }
 
 void Level::draw() {
-	for (auto *character : charactersCollector) {
-		character->draw();
+	for (auto i = 0u; i < charactersCollector.size(); i++) {
+		charactersCollector[i]->draw();
 	}
 }
