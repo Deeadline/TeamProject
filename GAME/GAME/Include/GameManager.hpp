@@ -2,7 +2,6 @@
 #include "Includers.hpp"
 #include "Level.hpp"
 #include "MenuManager.hpp"
-#include "PercyJackson.hpp"
 class GameManager { // g³ówna klasa gry
 public:
 	enum Status {
@@ -22,7 +21,7 @@ public:
 	void setLevel(std::string levelContent);
 	void GameManager::runGame();
 	inline sf::Font getFont() const { return font; }
-	inline void setStatus(enum Status tempora) { this->gameStatus = tempora; }
+	inline void setStatus(enum Status gameStatus) { this->gameStatus = gameStatus; }
 private:
 	GameManager();
 	GameManager(const GameManager&) = delete;

@@ -1,15 +1,14 @@
 #include "..\Include\GameManager.hpp"
 #include "..\Include\TextureManager.hpp"
 #include "..\Include\PercyJackson.hpp"
-#include "..\Include\MenuManager.hpp"
 #include <Windows.h>
 GameManager::GameManager() : gameStatus(Status::initializing),
 	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close),
 	currentLevel(new Level()){
 	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedize tez wyliczana.
-	TextureManager::loadTexture("Sprite_Side", "../Release/Bomberman/Side/Bman_F_f00.png");
-	TextureManager::loadTexture("Sprite_Side1", "../Release/Bomberman/Side/Bman_F_f03.png");
-	TextureManager::loadTexture("Sprite_Side2", "../Release/Bomberman/Side/Bman_F_f07.png");
+	TextureManager::loadTexture("Sprite_Side", "../Release/Thalia1.png");
+	TextureManager::loadTexture("Sprite_Side1", "../Release/Thalia3.png");
+	TextureManager::loadTexture("Sprite_Side2", "../Release/Thalia4.png");
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	if (!font.loadFromFile("../Release/menuFont.ttf")) {
 		MessageBox(NULL, "Font not found!", "ERROR", NULL); return;
