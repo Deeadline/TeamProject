@@ -24,10 +24,11 @@ public:
 private:
 	sf::Font font;
 	sf::Sprite background;
+	sf::Sprite sprite[3];
 	sf::Text menuContent[4];
 	sf::Text optionsContent[4];
 	sf::Text loadContent[4];
-	sf::Text newGameContent[4];
+	sf::Text newGameContent[5];
 	menuState menuStatus;
 	bool flag = false;
 	void setContent();

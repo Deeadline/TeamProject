@@ -7,9 +7,13 @@ GameManager::GameManager() : gameStatus(Status::initializing),
 	currentLevel(new Level()){
 	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedize tez wyliczana.
 	TextureManager::loadTexture("Sprite_Side", "../Release/Thalia1.png");
+	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia2.png");
+	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia2.png");
+	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia2.png");
 	TextureManager::loadTexture("Sprite_Side1", "../Release/Thalia3.png");
 	TextureManager::loadTexture("Sprite_Side2", "../Release/Thalia4.png");
 	TextureManager::loadTexture("background", "../Release/background.jpg");
+	TextureManager::loadTexture("tlo", "../Release/tlo.png");
 	if (!font.loadFromFile("../Release/menuFont.ttf")) {
 		MessageBox(NULL, "Font not found!", "ERROR", NULL); return;
 	}
