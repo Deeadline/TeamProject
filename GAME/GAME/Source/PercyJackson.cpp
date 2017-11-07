@@ -3,7 +3,7 @@
 #include "..\Include\TextureManager.hpp"
 PercyJackson::PercyJackson(): Player(new PercyJacksonController), isMenu(false), canMove(true) {
 	setLocation(grim::Vector2(120, 800));
-	background.setTexture(*(TextureManager::getTexture("background")));
+	background.setTexture(*(TextureManager::getTexture("tlo")));
 	sprite.setTexture(*(TextureManager::getTexture("Sprite_Side")));
 	sprite.setOrigin(120, 180);
 }
