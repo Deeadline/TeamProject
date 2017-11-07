@@ -5,20 +5,23 @@
 GameManager::GameManager() : gameStatus(Status::initializing),
 	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close),
 	currentLevel(new Level()){
+	currentWindow.setFramerateLimit(60);
 	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedize tez wyliczana.
-	TextureManager::loadTexture("Sprite_Side", "../Release/Thalia1.png");
-	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia2.png");
-	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia2.png");
-	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia2.png");
-	TextureManager::loadTexture("Sprite_Side1", "../Release/Thalia3.png");
-	TextureManager::loadTexture("Sprite_Side2", "../Release/Thalia4.png");
+	loadContent();
+}
+void GameManager::loadContent() {
+	TextureManager::loadTexture("Sprite_Side", "../Release/Thalia/Thalia1.png");
+	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia/Thalia2.png");
+	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/Thalia2.png");
+	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/Thalia2.png");
+	TextureManager::loadTexture("Sprite_Side1", "../Release/Thalia/Thalia3.png");
+	TextureManager::loadTexture("Sprite_Side2", "../Release/Thalia/Thalia4.png");
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
-	if (!font.loadFromFile("../Release/menuFont.ttf")) {
+	if (!font.loadFromFile("../Release//Font/tillana.ttf")) {
 		MessageBox(NULL, "Font not found!", "ERROR", NULL); return;
 	}
 }
-
 GameManager::~GameManager() {
 	if (currentWindow.isOpen())
 		currentWindow.close();
@@ -44,15 +47,6 @@ void GameManager::runGame() {
 	while (gameStatus != Status::cleaningUp) {
 		float frameStartTime = gameClock.getElapsedTime().asSeconds();
 
-		/*sf::Event windowEvent;
-
-		while (currentWindow.pollEvent(windowEvent)) {
-			if (windowEvent.type == sf::Event::Closed || 
-				(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Escape)) {
-				gameStatus = Status::cleaningUp;
-			}
-		}
-		*/
 		currentWindow.clear(backgroundColor);
 		currentLevel->updateLevel(deltaTime);
 		currentLevel->draw();

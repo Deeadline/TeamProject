@@ -6,7 +6,7 @@ public:
 	PercyJackson();
 	virtual void draw() override;
 	virtual void setLocation(const grim::Vector2 &location) override;
-	inline void incrementMoveFlag() { moveFlag++; }
+	inline void incrementMoveFlag() { std::cout << moveFlag << std::endl; moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
 	inline int getMoveFlag() { return moveFlag; }
 	void setSprite(bool);

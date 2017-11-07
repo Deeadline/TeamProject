@@ -26,7 +26,7 @@ private:
 	GameManager();
 	GameManager(const GameManager&) = delete;
 	void operator=(const GameManager&) = delete;
-
+	void loadContent();
 	sf::RenderWindow currentWindow;
 	MenuManager* content;
 	Status gameStatus;

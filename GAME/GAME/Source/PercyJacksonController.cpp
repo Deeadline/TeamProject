@@ -19,7 +19,7 @@ void PercyJacksonController::update(const float &deltaTime) {
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) < 1320)) {
 			owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
 			tempOwner->incrementMoveFlag();
-			if(tempOwner->getMoveFlag()==1200)
+			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 60.f))
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(false);
 		}
@@ -27,7 +27,7 @@ void PercyJacksonController::update(const float &deltaTime) {
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) > 120)) {
 			owner->move(grim::Vector2(-moveSpeed*deltaTime, 0));
 			tempOwner->incrementMoveFlag();
-			if (tempOwner->getMoveFlag() == 1200)
+			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f/60.f))
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(true);
 		}

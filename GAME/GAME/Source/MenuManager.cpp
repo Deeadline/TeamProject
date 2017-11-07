@@ -38,18 +38,14 @@ void MenuManager::draw() {
 	}
 }
 void MenuManager::setContent() {
-	std::string temp[] = { "Nowa gra", "Wczytaj", "Opcje", "Wyjdü" };
-	std::string temp1[] = { "Wybierz postaÊ", "Pierwsza", "Druga", "Trzecia", "Wyjdü" };
-	std::string temp2[] = { "RozdzielczoúÊ: ", "800x600", "1440x1080", "Wyjdü" };
-	std::string temp3[] = { "Wczytaj: ", "Zapis gry 1", "Zapis gry 2", "Wyjdü" };
+	sf::String temp[] = { "Nowa gra", "Wczytaj", "Opcje", L"Wyjdü" };
+	sf::String temp1[] = { L"Wybierz postaÊ", "Pierwsza", "Druga", "Trzecia", L"Wyjdü" };
+	sf::String temp2[] = { L"RozdzielczoúÊ: ", "800x600", "1440x1080", L"Wyjdü" };
+	sf::String temp3[] = { "Wczytaj: ", "Zapis gry 1", "Zapis gry 2", L"Wyjdü" };
 	for (auto i = 0u; i < 4; i++) {
 		menuContent[i].setFont(font);
 		menuContent[i].setCharacterSize(30);
 		menuContent[i].setString(temp[i]);
-
-		newGameContent[i].setFont(font);
-		newGameContent[i].setCharacterSize(30);
-		newGameContent[i].setString(temp1[i]);
 
 		optionsContent[i].setFont(font);
 		optionsContent[i].setCharacterSize(30);
@@ -63,9 +59,11 @@ void MenuManager::setContent() {
 		optionsContent[i].setPosition(200.f, 50.f + i*50.f);
 		loadContent[i].setPosition(200.f, 50.f + i*50.f);
 	}
-	newGameContent[4].setFont(font);
-	newGameContent[4].setCharacterSize(30);
-	newGameContent[4].setString(temp1[4]);
+	for (auto i = 0u; i < 5; i++) {
+		newGameContent[i].setFont(font);
+		newGameContent[i].setCharacterSize(30);
+		newGameContent[i].setString(temp1[i]);
+	}
 
 	for (auto i = 1u; i < 4; i++) {
 		newGameContent[i].setPosition(50.f + 300 * i, 680.f); // 1, 2 i 3
