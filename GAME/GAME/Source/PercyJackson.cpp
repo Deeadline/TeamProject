@@ -23,29 +23,29 @@ void PercyJackson::setLocation(const grim::Vector2 &location) {
 void PercyJackson::setSprite(bool isLeft) {
 	if (canMove) {
 		if (!isLeft) {
-			if (moveFlag % 3 == 1) {
+			if (moveFlag == 0) {
 				sprite.setScale(1, 1);
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side")));
 			}
-			else if (moveFlag % 3 == 2) {
+			else if (moveFlag == 400) {
 				sprite.setScale(1, 1);
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side1")));
 			}
-			else if (moveFlag % 3 == 0) {
+			else if (moveFlag == 800) {
 				sprite.setScale(1, 1);
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side2")));
 			}
 		}
 		else {
-			if (moveFlag % 3 == 1) {
+			if (moveFlag == 0) {
 				sprite.setScale(-1, 1);
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side")));
 			}
-			else if (moveFlag % 3 == 2) {
+			else if (moveFlag == 400) {
 				sprite.setScale(-1, 1);
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side1")));
 			}
-			else if (moveFlag % 3 == 0) {
+			else if (moveFlag == 800) {
 				sprite.setScale(-1, 1);
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side2")));
 			}

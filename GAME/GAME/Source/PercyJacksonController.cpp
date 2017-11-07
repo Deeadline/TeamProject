@@ -19,12 +19,16 @@ void PercyJacksonController::update(const float &deltaTime) {
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) < 1320)) {
 			owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
 			tempOwner->incrementMoveFlag();
+			if(tempOwner->getMoveFlag()==1200)
+				tempOwner->setMoveFlag();
 			tempOwner->setSprite(false);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) &&
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) > 120)) {
 			owner->move(grim::Vector2(-moveSpeed*deltaTime, 0));
 			tempOwner->incrementMoveFlag();
+			if (tempOwner->getMoveFlag() == 1200)
+				tempOwner->setMoveFlag();
 			tempOwner->setSprite(true);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
