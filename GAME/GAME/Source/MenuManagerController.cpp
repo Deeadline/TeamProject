@@ -33,15 +33,18 @@ void MenuManagerController::update(const float &deltaTime) {
 	}
 	else {
 		if (tempOwner->getStatus() == MenuManager::menuState::newGame) {
-			if (tempOwner->getNewGameContent(1).getGlobalBounds().contains(mouse) &&
+			if ((tempOwner->getNewGameContent(1).getGlobalBounds().contains(mouse) ||
+				tempOwner->getSpriteBounds(0).contains(mouse))&&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				GameManager::instance().setLevel("newGame");
 			}
-			else if (tempOwner->getNewGameContent(2).getGlobalBounds().contains(mouse) &&
+			else if ((tempOwner->getNewGameContent(2).getGlobalBounds().contains(mouse) ||
+				tempOwner->getSpriteBounds(1).contains(mouse)) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				GameManager::instance().setLevel("newGame");
 			}
-			else if (tempOwner->getNewGameContent(3).getGlobalBounds().contains(mouse) &&
+			else if ((tempOwner->getNewGameContent(3).getGlobalBounds().contains(mouse) ||
+				tempOwner->getSpriteBounds(2).contains(mouse)) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				GameManager::instance().setLevel("newGame");
 			}
