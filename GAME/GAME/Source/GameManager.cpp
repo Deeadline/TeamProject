@@ -46,7 +46,12 @@ void GameManager::runGame() {
 
 	while (gameStatus != Status::cleaningUp) {
 		float frameStartTime = gameClock.getElapsedTime().asSeconds();
-
+		sf::Event event;
+		while (currentWindow.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				gameStatus = Status::cleaningUp;
+			}
+		}
 		currentWindow.clear(backgroundColor);
 		currentLevel->updateLevel(deltaTime);
 		currentLevel->draw();
