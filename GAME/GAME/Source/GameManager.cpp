@@ -2,12 +2,19 @@
 #include "..\Include\TextureManager.hpp"
 #include "..\Include\PercyJackson.hpp"
 #include <Windows.h>
-GameManager::GameManager() : gameStatus(Status::initializing),
-	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close),
-	currentLevel(new Level()){
+GameManager::GameManager() : currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close),
+	currentView(currentWindow.getDefaultView()),
+	gameStatus(Status::initializing), currentLevel(new Level()){
 	currentWindow.setFramerateLimit(60);
+	currentWindow.setView(currentView);
 	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedize tez wyliczana.
 	loadContent();
+}
+void GameManager::setResolution(sf::Vector2u &resolution) {
+	currentWindow.create(sf::VideoMode(resolution.x, resolution.y, 32), "Nowa gra", sf::Style::Close);
+	currentView.setSize(resolution.x,resolution.y);
+	currentView.setCenter(resolution.x / 2, resolution.y / 2);
+	currentWindow.setView(currentView);
 }
 void GameManager::loadContent() {
 	TextureManager::loadTexture("Sprite_Side", "../Release/Thalia/Thalia1.png");

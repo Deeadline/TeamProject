@@ -18,16 +18,19 @@ public:
 	inline sf::RenderWindow& getWindow() { return currentWindow; }
 	inline Status getStatus() const { return gameStatus; }
 	inline Level* getLevel() const { return currentLevel; }
+	inline sf::View& getView() { return currentView; }
 	void setLevel(std::string levelContent);
 	void GameManager::runGame();
 	inline sf::Font getFont() const { return font; }
 	inline void setStatus(enum Status gameStatus) { this->gameStatus = gameStatus; }
+	void setResolution(sf::Vector2u &);
 private:
 	GameManager();
 	GameManager(const GameManager&) = delete;
 	void operator=(const GameManager&) = delete;
 	void loadContent();
 	sf::RenderWindow currentWindow;
+	sf::View currentView;
 	MenuManager* content;
 	Status gameStatus;
 	Level* currentLevel;

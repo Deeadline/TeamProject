@@ -70,10 +70,12 @@ void MenuManagerController::update(const float &deltaTime) {
 		else if (tempOwner->getStatus() == MenuManager::menuState::options) {
 			if (tempOwner->getOptionsContent(1).getGlobalBounds().contains(mouse) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+				//GameManager::instance().setResolution(sf::Vector2u(800, 600));
 				tempOwner->setFlag(false);
 			}
 			else if (tempOwner->getOptionsContent(2).getGlobalBounds().contains(mouse) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+				GameManager::instance().setResolution(sf::Vector2u(1440, 1080));
 				tempOwner->setFlag(false);
 			}
 			else if (tempOwner->getOptionsContent(3).getGlobalBounds().contains(mouse) &&

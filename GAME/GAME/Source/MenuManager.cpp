@@ -4,7 +4,7 @@
 
 MenuManager::MenuManager() :Player(new MenuManagerController) {
 	setLocation(grim::Vector2(0,0));
-	background.setTexture(*(TextureManager::getTexture("background")));
+	background.setTexture(*TextureManager::getTexture("background"));
 	sprite[0].setTexture(*(TextureManager::getTexture("Sprite_Combat1")));
 	sprite[1].setTexture(*(TextureManager::getTexture("Sprite_Combat2")));
 	sprite[2].setTexture(*(TextureManager::getTexture("Sprite_Combat3")));
