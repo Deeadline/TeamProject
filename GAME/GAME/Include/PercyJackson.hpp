@@ -6,6 +6,7 @@ public:
 	PercyJackson();
 	virtual void draw() override;
 	virtual void setLocation(const grim::Vector2 &location) override;
+	virtual void setViewLocation(const grim::Vector2 &viewLocation) override;
 	inline void incrementMoveFlag() { moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
 	inline int getMoveFlag() { return moveFlag; }

@@ -54,6 +54,12 @@
     <ClCompile Include="Source\MenuManagerController.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyController.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\CharacterMechanic.hpp">
@@ -96,6 +102,12 @@
       <Filter>Header Files\Include</Filter>
     </ClInclude>
     <ClInclude Include="Include\MenuManagerController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Enemy.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EnemyController.hpp">
       <Filter>Header Files\Include</Filter>
     </ClInclude>
   </ItemGroup>
