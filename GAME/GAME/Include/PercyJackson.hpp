@@ -1,7 +1,7 @@
 #pragma once
 #include "Player.hpp"
 #include "PercyJacksonController.hpp"
-class PercyJackson : public Player { // klasa do poruszania siê graczem.
+class PercyJackson : public Player { // klasa do poruszania siÃª graczem.
 public: 
 	PercyJackson();
 	virtual void draw() override;
@@ -23,6 +23,11 @@ public:
 	inline bool getIsLeft() const { return isLeft; }
 	inline void setCanMove(const bool canMove) { this->canMove = canMove; }
 	inline bool getCanMove() const { return canMove; }
+  
+	inline void setCanJump(bool canJump) { this->canJump = canJump; }
+	inline bool getCanJump() const { return canJump; }
+
+	double getTime(clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
 	static double getTime(const clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
 private:
 	sf::Sprite sprite;
@@ -32,6 +37,7 @@ private:
 	bool canJump;
 	bool isMenu;
 	bool canMove;
+	bool canJump;
 	double time;
 	bool isLeft;
 };

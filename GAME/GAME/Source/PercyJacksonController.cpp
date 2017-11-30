@@ -48,7 +48,7 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(true);
 		}
-		if (!tempOwner->getCanJump()) { //je¿eli postaæ jest w trakcie skoku, wykona sie funkcja jump
+		if (!tempOwner->getCanJump()) { //jeÂ¿eli postaÃ¦ jest w trakcie skoku, wykona sie funkcja jump
 			jump(deltaTime);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && tempOwner->getCanJump()) { //skok

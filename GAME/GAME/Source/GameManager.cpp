@@ -14,9 +14,7 @@ void GameManager::loadContent() {
 
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
-
-
-
+  
 	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia/Thalia2.png");
 	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/Thalia2.png");
 	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/Thalia2.png");
@@ -46,6 +44,7 @@ void GameManager::setLevel(const std::string levelContent)
 		currentLevel->addCharacter(enemy);
 	}
 }
+
 void GameManager::runGame() {
 	gameStatus = Status::running;
 	content = new MenuManager();
@@ -61,6 +60,7 @@ void GameManager::runGame() {
 				gameStatus = Status::cleaningUp;
 			}
 		}
+		currentWindow.clear(backgroundColor);
 		currentWindow.clear();
 		currentLevel->updateLevel(deltaTime, event);
 		currentLevel->draw();
