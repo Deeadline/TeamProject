@@ -7,7 +7,7 @@ EnemyController::EnemyController() :
 
 }
 
-void EnemyController::update(const float &deltaTime) {
+void EnemyController::update(const float &deltaTime, sf::Event &event) {
 	auto* tempOwner = dynamic_cast<Enemy*>(owner);
 	if (GameManager::instance().getPlayer()->getIsMenu()) {
 		tempOwner->setCanMove(false);
@@ -22,7 +22,7 @@ void EnemyController::update(const float &deltaTime) {
 			tempOwner->setCanMove(true);
 		}
 		tempOwner->incrementMoveFlag();
-		if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 60.f))
+		if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
 			tempOwner->setMoveFlag();
 		tempOwner->setSprite();
 	}

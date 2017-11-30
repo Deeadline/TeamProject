@@ -11,7 +11,7 @@ public:
 	inline void move(const grim::Vector2 &delta) { this->setLocation(location + delta); }
 	inline void moveView(const grim::Vector2 &delta) { this->setViewLocation(viewLocation + delta); }
 	inline void rotate(const float &delta) { this->setRotation(rotation + delta); }
-	inline virtual void update(const float &deltaTime){}
+	inline virtual void update(const float &deltaTime, sf::Event &event){}
 	virtual void draw() = 0;
 	inline grim::Vector2 getLocation() const { return location; }
 	inline float getRotation() const { return rotation; }

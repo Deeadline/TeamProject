@@ -23,11 +23,17 @@ public:
 	inline PercyJackson* getPlayer() const { return player; }
 	inline Enemy* getEnemy() const { return enemy; }
 	void setLevel(std::string levelContent);
-	void GameManager::runGame();
+	void runGame();
 	inline sf::Font getFont() const { return font; }
 	inline void setStatus(enum Status gameStatus) { this->gameStatus = gameStatus; }
 	inline sf::View& getViewGame() { return viewGame; }
 	inline sf::View& getViewMenu() { return viewMenu; }
+protected:
+	MenuManager* content;
+	PercyJackson* player;
+	Enemy* enemy;
+	Status gameStatus;
+	Level* currentLevel;
 private:
 	GameManager();
 	GameManager(const GameManager&) = delete;
@@ -36,10 +42,5 @@ private:
 	sf::RenderWindow currentWindow;
 	sf::View viewMenu;
 	sf::View viewGame;
-	MenuManager* content;
-	PercyJackson* player;
-	Enemy* enemy;
-	Status gameStatus;
-	Level* currentLevel;
 	sf::Font font;
 };

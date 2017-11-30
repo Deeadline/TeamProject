@@ -1,14 +1,13 @@
 #pragma once
-//tutaj bêd¹ wykonywane g³ówne akcje postaci, poruszanie siê oraz interakcja z otoczeniem.
 #include "PlayerController.hpp"
-#include "PercyJackson.hpp"
 class PercyJacksonController :public PlayerController {
 public:
 	PercyJacksonController();
-	virtual void update(const float &deltaTime) override;
-	void jump(const grim::Vector2 &delta);
+	virtual void update(const float &deltaTime, sf::Event &event) override;
 private:
 	float moveSpeed;
-	const grim::Vector2 gravity;
-	grim::Vector2 jumpForce;
+	const grim::Vector2f gravity;
+	grim::Vector2 velocity;
+	unsigned jumpCycle;
+	void jump(const float &deltaTime);
 };

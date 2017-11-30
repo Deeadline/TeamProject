@@ -1,11 +1,10 @@
 #include "..\Include\MenuManagerController.hpp"
 #include "..\Include\GameManager.hpp"
-#include "..\Include\TextureManager.hpp"
 
 MenuManagerController::MenuManagerController() {
 
 }
-void MenuManagerController::update(const float &deltaTime) {
+void MenuManagerController::update(const float &deltaTime, sf::Event &event) {
 	auto* tempOwner = dynamic_cast<MenuManager*>(owner);
 	sf::Vector2f mouse(sf::Mouse::getPosition(GameManager::instance().getWindow()));
 	if (!tempOwner->getFlag()) {

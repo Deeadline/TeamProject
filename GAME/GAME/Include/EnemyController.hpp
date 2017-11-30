@@ -5,7 +5,7 @@
 class EnemyController :public PlayerController {
 public:
 	EnemyController();
-	virtual void update(const float &deltaTime) override;
+	virtual void update(const float &deltaTime, sf::Event &event) override;
 private:
 	float moveSpeed;
 };

@@ -10,18 +10,28 @@ public:
 	inline void incrementMoveFlag() { moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
 	inline int getMoveFlag() { return moveFlag; }
+	inline void setJumpFlagUp(const bool a) { jumpFlagUp = a; }
+	inline bool getJumpFlagUp() { return jumpFlagUp; }
+
+	void setCanJump(const bool canJump) { this->canJump = canJump; }
+	inline bool getCanJump() { return canJump; }
+
 	void setSprite(bool);
 	inline sf::Sprite getSprite() const { return sprite; }
-	inline void setIsMenu(bool isMenu) { this->isMenu = isMenu; }
+	inline void setIsMenu(const bool isMenu) { this->isMenu = isMenu; }
 	inline bool getIsMenu() const { return isMenu; }
-	inline void setCanMove(bool canMove) { this->canMove = canMove; }
+	inline bool getIsLeft() const { return isLeft; }
+	inline void setCanMove(const bool canMove) { this->canMove = canMove; }
 	inline bool getCanMove() const { return canMove; }
-	double getTime(clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
+	static double getTime(const clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
 private:
 	sf::Sprite sprite;
 	sf::Sprite background;
 	int moveFlag;
+	bool jumpFlagUp;
+	bool canJump;
 	bool isMenu;
 	bool canMove;
 	double time;
+	bool isLeft;
 };

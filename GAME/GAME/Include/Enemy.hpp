@@ -1,6 +1,5 @@
 #pragma once
 #include "Player.hpp"
-#include "EnemyController.hpp"
 
 class Enemy : public Player { // klasa do poruszania siê graczem.
 public:
@@ -9,7 +8,7 @@ public:
 	virtual void setLocation(const grim::Vector2 &location) override;
 	inline void incrementMoveFlag() { moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
-	inline int getMoveFlag() { return moveFlag; }
+	inline int getMoveFlag() const { return moveFlag; }
 	inline void setCanMove(bool type) { canMove = type; }
 	inline bool getCanMove() const { return canMove; }
 	void setSprite();

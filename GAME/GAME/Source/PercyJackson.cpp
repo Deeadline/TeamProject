@@ -1,11 +1,11 @@
 #include "..\Include\PercyJackson.hpp"
 #include "..\Include\GameManager.hpp"
 #include "..\Include\TextureManager.hpp"
-PercyJackson::PercyJackson(): Player(new PercyJacksonController), isMenu(false), canMove(true), moveFlag(0) {
+PercyJackson::PercyJackson(): Player(new PercyJacksonController), moveFlag(0), canJump(true), isMenu(false), canMove(true) {
 	setLocation(grim::Vector2(95, 800));
 	setViewLocation(grim::Vector2(420,540));
 	background.setTexture(*(TextureManager::getTexture("tlo")));
-	sprite.setTexture(*(TextureManager::getTexture("Sprite_Side")));
+	sprite.setTexture(*(TextureManager::getTexture("Sprite_Side1")));
 	sprite.setOrigin(95, 180);
 }
 void PercyJackson::draw() {
@@ -30,11 +30,15 @@ void PercyJackson::setViewLocation(const grim::Vector2 & viewLocation)
 }
 
 void PercyJackson::setSprite(bool isLeft) {
+	this->isLeft = isLeft;
 	if (canMove) {
-		if (!isLeft) {
+		(!isLeft) ? sprite.setScale(1, 1) : sprite.setScale(-1, 1);
+		sprite.setTexture(*(TextureManager::getTexture("Sprite_Side" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1))));
+		/*if (!isLeft) {
+			unsigned i = 0, x = 0;
 			sprite.setScale(1, 1);
 			if (moveFlag == 0) {
-				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side")));
+				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side0")));
 			}
 			else if (moveFlag == static_cast<int>(100 / 40.f)) {
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side1")));
@@ -73,7 +77,7 @@ void PercyJackson::setSprite(bool isLeft) {
 		else {
 			sprite.setScale(-1, 1);
 			if (moveFlag == 0) {
-				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side")));
+				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side0")));
 			}
 			else if (moveFlag == static_cast<int>(100 / 40.f)) {
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side1")));
@@ -109,6 +113,6 @@ void PercyJackson::setSprite(bool isLeft) {
 				sprite.setTexture(*(TextureManager::getTexture("Sprite_Side11")));
 			}
 
-		}
+		}*/
 	}
 }

@@ -40,9 +40,9 @@ std::size_t Level::cleanLevel() {
 	return charactersCount;
 }
 
-void Level::updateLevel(const float &deltaTime) {
+void Level::updateLevel(const float &deltaTime, sf::Event &event) {
 	for (auto i = 0u; i < charactersCollector.size();i++) {
-		charactersCollector[i]->update(deltaTime);
+		charactersCollector[i]->update(deltaTime, event);
 	}
 }
 

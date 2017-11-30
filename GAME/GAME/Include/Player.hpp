@@ -7,7 +7,7 @@ public:
 	Player(PlayerController *controller);
 	virtual ~Player();
 	void resetController(PlayerController *controller);
-	virtual void update(const float &deltaTime);
+	void update(const float &deltaTime, sf::Event &event) override;
 protected:
 	PlayerController* controller;
 };

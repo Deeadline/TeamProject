@@ -1,26 +1,16 @@
-#include "..\Include\GameManager.hpp"
-#include "..\Include\TextureManager.hpp"
+#include "../Include/GameManager.hpp"
+#include "../Include/TextureManager.hpp"
 
 #include <Windows.h>
 GameManager::GameManager() : gameStatus(Status::initializing),
-	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close),
-	currentLevel(new Level()){
-	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedize tez wyliczana.
+	currentLevel(new Level()),
+	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close){
+	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedzie tez wyliczana.
 	loadContent();
 }
 void GameManager::loadContent() {
-	TextureManager::loadTexture("Sprite_Side", "../Release/Thalia2/Thalia1.png");
-	TextureManager::loadTexture("Sprite_Side1", "../Release/Thalia2/Thalia2.png");
-	TextureManager::loadTexture("Sprite_Side2", "../Release/Thalia2/Thalia3.png");
-	TextureManager::loadTexture("Sprite_Side3", "../Release/Thalia2/Thalia4.png");
-	TextureManager::loadTexture("Sprite_Side4", "../Release/Thalia2/Thalia5.png");
-	TextureManager::loadTexture("Sprite_Side5", "../Release/Thalia2/Thalia6.png");
-	TextureManager::loadTexture("Sprite_Side6", "../Release/Thalia2/Thalia7.png");
-	TextureManager::loadTexture("Sprite_Side7", "../Release/Thalia2/Thalia8.png");
-	TextureManager::loadTexture("Sprite_Side8", "../Release/Thalia2/Thalia9.png");
-	TextureManager::loadTexture("Sprite_Side9", "../Release/Thalia2/Thalia10.png");
-	TextureManager::loadTexture("Sprite_Side10", "../Release/Thalia2/Thalia11.png");
-	TextureManager::loadTexture("Sprite_Side11", "../Release/Thalia2/Thalia12.png");
+	for (int i = 1; i <= 12; i++)
+		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia2/Thalia" + std::to_string(i) + ".png");
 
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
@@ -46,14 +36,14 @@ GameManager::~GameManager() {
 	if (currentLevel)
 		delete currentLevel;
 }
-void GameManager::setLevel(std::string levelContent)
+void GameManager::setLevel(const std::string levelContent)
 {
 	if (levelContent == "newGame") {
 		currentLevel->removeCharacter(content);
 		player = new PercyJackson();
 		enemy = new Enemy();
 		currentLevel->addCharacter(player);
-		//currentLevel->addCharacter(enemy);
+		currentLevel->addCharacter(enemy);
 	}
 }
 void GameManager::runGame() {
@@ -61,19 +51,18 @@ void GameManager::runGame() {
 	content = new MenuManager();
 	currentLevel->addCharacter(content);
 	sf::Clock gameClock;
-	sf::Color backgroundColor(30, 30, 30);
-	float deltaTime = 1 / 60.f;
+	auto deltaTime = 1 / 60.f;
 
 	while (gameStatus != Status::cleaningUp) {
-		float frameStartTime = gameClock.getElapsedTime().asSeconds();
+		const auto frameStartTime = gameClock.getElapsedTime().asSeconds();
 		sf::Event event;
 		while (currentWindow.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				gameStatus = Status::cleaningUp;
 			}
 		}
-		currentWindow.clear(backgroundColor);
-		currentLevel->updateLevel(deltaTime);
+		currentWindow.clear();
+		currentLevel->updateLevel(deltaTime, event);
 		currentLevel->draw();
 		currentWindow.display();
 
