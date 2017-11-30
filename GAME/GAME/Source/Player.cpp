@@ -27,9 +27,9 @@ void Player::resetController(PlayerController *controller) {
 	}
 }
 
-void Player::update(const float &deltaTime) {
+void Player::update(const float &deltaTime, sf::Event &event) {
 	
 	if (this->controller) {
-		this->controller->update(deltaTime);
+		this->controller->update(deltaTime, event);
 	}
 }

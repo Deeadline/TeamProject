@@ -1,7 +1,7 @@
-﻿  PercyJacksonController.cpp
-  Trwa generowanie kodu
-  1 of 474 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+﻿  EnemyController.cpp
+  Generating code
+  1 of 534 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
-  Zakończono generowanie kodu
-  GAME.vcxproj -> C:\Users\Grzegorz\Documents\TeamProject\GAME\Release\GAME.exe
+    2 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  GAME.vcxproj -> D:\TeamProject\GAME\Release\GAME.exe

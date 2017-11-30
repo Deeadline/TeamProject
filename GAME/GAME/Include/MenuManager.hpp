@@ -21,6 +21,7 @@ public:
 	inline menuState getStatus() const { return menuStatus; }
 	inline void setFlag(bool flag) { this->flag = flag; }
 	inline bool getFlag() const { return this->flag; }
+	inline sf::FloatRect getSpriteBounds(int numberOfSprite) const { return sprite[numberOfSprite].getGlobalBounds(); }
 private:
 	sf::Font font;
 	sf::Sprite background;

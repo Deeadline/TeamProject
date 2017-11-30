@@ -1,12 +1,11 @@
 #pragma once
 #include "PlayerController.hpp"
-#include "MenuManager.hpp"
+#include "Enemy.hpp"
 
-class MenuManagerController : public PlayerController {
+class EnemyController :public PlayerController {
 public:
-	MenuManagerController();
+	EnemyController();
 	virtual void update(const float &deltaTime, sf::Event &event) override;
-
 private:
-	
+	float moveSpeed;
 };
