@@ -6,6 +6,7 @@ public:
 	PercyJackson();
 	virtual void draw() override;
 	virtual void setLocation(const grim::Vector2 &location) override;
+	virtual void setViewLocation(const grim::Vector2 &viewLocation) override;
 	inline void incrementMoveFlag() { moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
 	inline int getMoveFlag() { return moveFlag; }
@@ -15,6 +16,10 @@ public:
 	inline bool getIsMenu() const { return isMenu; }
 	inline void setCanMove(bool canMove) { this->canMove = canMove; }
 	inline bool getCanMove() const { return canMove; }
+
+	inline void setCanJump(bool canJump) { this->canJump = canJump; }
+	inline bool getCanJump() const { return canJump; }
+
 	double getTime(clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
 private:
 	sf::Sprite sprite;
@@ -22,5 +27,6 @@ private:
 	int moveFlag;
 	bool isMenu;
 	bool canMove;
+	bool canJump;
 	double time;
 };

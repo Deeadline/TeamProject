@@ -6,6 +6,8 @@ class PercyJacksonController :public PlayerController {
 public:
 	PercyJacksonController();
 	virtual void update(const float &deltaTime) override;
+	void jump(const float &deltaTime);
 private:
 	float moveSpeed;
+	int jumpCycle;
 };
