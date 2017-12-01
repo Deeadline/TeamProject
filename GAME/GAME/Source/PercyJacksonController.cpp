@@ -1,9 +1,10 @@
 #include "../Include/PercyJackson.hpp"
 #include "../Include/GameManager.hpp"
+
 PercyJacksonController::PercyJacksonController() :	moveSpeed(300.f), gravity(981.f),velocity(0,0),jumpCycle(0) {
 }
 
-void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
+void PercyJacksonController::update(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<PercyJackson*>(owner);
 	if (tempOwner->getIsMenu()) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
@@ -12,14 +13,22 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			tempOwner->setIsMenu(false);
 		}
 	}
-	else {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
+
+		if (!tempOwner->getCanJump()) { //je?eli postaa jest w trakcie skoku, wykona sie funkcja jump
+			jump(deltaTime);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && tempOwner->getCanJump()) { //skok
+			tempOwner->setCanJump(false);
+			jumpCycle = -15;
+			jump(deltaTime);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime))) {
 			owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
 			owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
 			tempOwner->incrementMoveFlag();
-			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f)
+			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(false);
 		}
@@ -33,31 +42,27 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(true);
 		}
-		if (!tempOwner->getCanJump()) { //jeżeli postać jest w trakcie skoku, wykona sie funkcja jump
-			jump(deltaTime);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && tempOwner->getCanJump()) { //skok
-			tempOwner->setCanJump(false);
-			jumpCycle = 0;
-			velocity.y = -sqrtf(2.f*gravity*moveSpeed);
-			jump(deltaTime);
-		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewMenu());
 			tempOwner->setCanMove(false);
 			tempOwner->setIsMenu(true);
-		}
+}
 	}
 }
 
 void PercyJacksonController::jump(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<PercyJackson*>(owner);
-	if (jumpCycle < 15)
-		owner->move(velocity*deltaTime);
-	else
-		owner->move(-velocity*deltaTime);
+	float velocity = (float)pow((abs((float)jumpCycle) / 10) + 1, 1.5) ;
+	std::cout << jumpCycle << ", " << velocity << std::endl;
+	if (jumpCycle < 0) {
+		owner->move(grim::Vector2(0, deltaTime * -moveSpeed * velocity));
+	}
+	else if(jumpCycle > 0){
+		owner->move(grim::Vector2(0, deltaTime * moveSpeed * velocity));
+	}
 	jumpCycle++;
-	if (jumpCycle == 40) {
+
+	if (jumpCycle == 16) {
 		tempOwner->setCanJump(true);
 	}
 }
