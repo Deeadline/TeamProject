@@ -1,6 +1,7 @@
 #include "..\Include\PercyJackson.hpp"
 #include "..\Include\GameManager.hpp"
 #include "..\Include\TextureManager.hpp"
+
 PercyJackson::PercyJackson(): Player(new PercyJacksonController), moveFlag(0), canJump(true), isMenu(false), canMove(true) {
 	setLocation(grim::Vector2(95, 800));
 	setViewLocation(grim::Vector2(420,540));
@@ -29,15 +30,15 @@ void PercyJackson::setViewLocation(const grim::Vector2 & viewLocation)
 	GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
 }
 
+
 void PercyJackson::setSprite(const bool isLeft) {
 	this->isLeft = isLeft;
 	if (canMove) {
 		(!isLeft) ? sprite.setScale(1, 1) : sprite.setScale(-1, 1);
 		if (!canJump) {
 			sprite.setTexture(*(TextureManager::getTexture("Sprite_Jump" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1))));
-		}
 		else {
-			sprite.setTexture(*(TextureManager::getTexture("Sprite_Side" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1))));
+		sprite.setTexture(*(TextureManager::getTexture("Sprite_Side" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1))));
 		}
 	}
 }

@@ -1,7 +1,6 @@
 #include "../Include/PercyJackson.hpp"
 #include "../Include/GameManager.hpp"
-PercyJacksonController::PercyJacksonController() :
-	moveSpeed(300.f), gravity(981.f),velocity(0,0),jumpCycle(0) {
+PercyJacksonController::PercyJacksonController() :	moveSpeed(300.f), gravity(981.f),velocity(0,0),jumpCycle(0) {
 }
 
 void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
@@ -20,7 +19,7 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
 			tempOwner->incrementMoveFlag();
-			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
+			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f)
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(false);
 		}
@@ -34,7 +33,7 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->setMoveFlag();
 			tempOwner->setSprite(true);
 		}
-		if (!tempOwner->getCanJump()) { //je¿eli postaæ jest w trakcie skoku, wykona sie funkcja jump
+		if (!tempOwner->getCanJump()) { //jeÅ¼eli postaÄ‡ jest w trakcie skoku, wykona sie funkcja jump
 			jump(deltaTime);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && tempOwner->getCanJump()) { //skok
@@ -58,7 +57,7 @@ void PercyJacksonController::jump(const float &deltaTime) {
 	else
 		owner->move(-velocity*deltaTime);
 	jumpCycle++;
-	if (jumpCycle == 30) {
+	if (jumpCycle == 40) {
 		tempOwner->setCanJump(true);
 	}
 }
