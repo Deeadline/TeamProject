@@ -9,17 +9,18 @@ GameManager::GameManager() : gameStatus(Status::initializing),
 	loadContent();
 }
 void GameManager::loadContent() {
-	for (int i = 1; i <= 12; i++)
-		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia2/Thalia" + std::to_string(i) + ".png");
+	for (auto i = 1; i <= 12; i++)
+		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia/Thalia" + std::to_string(i) + ".png");
 
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
 
+	for(auto i = 1; i<=7; i++)
+		TextureManager::loadTexture("Sprite_Jump" + std::to_string(i), "../Release/Thalia/ThaliaJump" + std::to_string(i) + ".png");
 
-
-	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia/Thalia2.png");
-	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/Thalia2.png");
-	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/Thalia2.png");
+	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia/ThaliaJump7.png");
+	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/ThaliaJump7.png");
+	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/ThaliaJump7.png");
 	currentWindow.setFramerateLimit(40);
 	viewMenu.setSize(currentWindow.getSize().x,currentWindow.getSize().y);
 	viewGame.setSize(currentWindow.getSize().x, currentWindow.getSize().y);

@@ -1,7 +1,7 @@
 #include "../Include/PercyJackson.hpp"
 #include "../Include/GameManager.hpp"
 PercyJacksonController::PercyJacksonController() :
-	moveSpeed(300.f), gravity(0,981.f) {
+	moveSpeed(300.f), gravity(981.f),velocity(0,0),jumpCycle(0) {
 }
 
 void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
@@ -13,20 +13,6 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			tempOwner->setIsMenu(false);
 		}
 	}
-	/*else if (tempOwner->getJumpFlag()) {
-		if (tempOwner->getJumpFlagUp()) {
-			tempOwner->setLocation(grim::Vector2(tempOwner->getLocation().x, tempOwner->getLocation().y - 10));
-			if (tempOwner->getLocation().y <= 650) {
-				tempOwner->setJumpFlagUp(false);
-			}
-		}
-		else {
-			tempOwner->setLocation(grim::Vector2(tempOwner->getLocation().x, tempOwner->getLocation().y + 10));
-			if (tempOwner->getLocation().y >= 800) {
-				tempOwner->setJumpFlag(false);
-			}
-		}
-	}*/
 	else {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime))) {
@@ -54,6 +40,7 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && tempOwner->getCanJump()) { //skok
 			tempOwner->setCanJump(false);
 			jumpCycle = 0;
+			velocity.y = -sqrtf(2.f*gravity*moveSpeed);
 			jump(deltaTime);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -66,14 +53,12 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 
 void PercyJacksonController::jump(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<PercyJackson*>(owner);
-	if (jumpCycle < 20) {
-		owner->move(grim::Vector2(0, -moveSpeed*deltaTime * 2));
-	}
-	else {
-		owner->move(grim::Vector2(0, moveSpeed*deltaTime * 2));
-	}
+	if (jumpCycle < 15)
+		owner->move(velocity*deltaTime);
+	else
+		owner->move(-velocity*deltaTime);
 	jumpCycle++;
-	if (jumpCycle == 40) {
+	if (jumpCycle == 30) {
 		tempOwner->setCanJump(true);
 	}
 }

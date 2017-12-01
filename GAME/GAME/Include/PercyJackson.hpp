@@ -9,14 +9,12 @@ public:
 	virtual void setViewLocation(const grim::Vector2 &viewLocation) override;
 	inline void incrementMoveFlag() { moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
-	inline int getMoveFlag() { return moveFlag; }
-	inline void setJumpFlagUp(const bool a) { jumpFlagUp = a; }
-	inline bool getJumpFlagUp() { return jumpFlagUp; }
+	inline int getMoveFlag() const { return moveFlag; }
 
 	void setCanJump(const bool canJump) { this->canJump = canJump; }
 	inline bool getCanJump() { return canJump; }
 
-	void setSprite(bool);
+	void setSprite(const bool);
 	inline sf::Sprite getSprite() const { return sprite; }
 	inline void setIsMenu(const bool isMenu) { this->isMenu = isMenu; }
 	inline bool getIsMenu() const { return isMenu; }
@@ -28,7 +26,6 @@ private:
 	sf::Sprite sprite;
 	sf::Sprite background;
 	int moveFlag;
-	bool jumpFlagUp;
 	bool canJump;
 	bool isMenu;
 	bool canMove;
