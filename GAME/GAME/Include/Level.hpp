@@ -8,10 +8,14 @@ public:
 	bool addCharacter(CharacterMechanics* character);
 	bool removeCharacter(CharacterMechanics* character);
 	bool existCharacter(CharacterMechanics* character) const;
+	std::vector<CharacterMechanics*> getAllColliders();
 	std::size_t cleanLevel();
 	void updateLevel(const float &deltaTime, sf::Event &event);
 	void draw();
 	inline std::size_t countCharacter() const { return charactersCollector.size(); }
+	void addStaticObjects(sf::Rect<float>);
+	bool checkCollision(sf::Rect<float>);
 private:
 	std::vector<CharacterMechanics *> charactersCollector;
+	std::vector<sf::Rect<float>> staticObjectList;
 };

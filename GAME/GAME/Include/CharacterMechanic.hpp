@@ -1,6 +1,6 @@
 #pragma once
 #include "Includers.hpp"
-#include "Math\Vector2.hpp"
+#include "Math/Vector2.hpp"
 class CharacterMechanics { // klasa abstrakcyjna do wyœwietlenia gracza
 public:
 	inline CharacterMechanics() :rotation(0) {  }
@@ -15,7 +15,7 @@ public:
 	virtual void draw() = 0;
 	inline grim::Vector2 getLocation() const { return location; }
 	inline float getRotation() const { return rotation; }
-private:
+protected:
 	grim::Vector2 location;
 	grim::Vector2 viewLocation;
 	float rotation;

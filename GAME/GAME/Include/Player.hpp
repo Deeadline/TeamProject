@@ -8,6 +8,7 @@ public:
 	virtual ~Player();
 	void resetController(PlayerController *controller);
 	void update(const float &deltaTime, sf::Event &event) override;
+
 protected:
 	PlayerController* controller;
 };

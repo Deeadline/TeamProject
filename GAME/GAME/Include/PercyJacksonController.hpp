@@ -10,4 +10,6 @@ private:
 	grim::Vector2f velocity;
 	unsigned jumpCycle;
 	void jump(const float &deltaTime);
+	void moveLeft(const float &delta);
+	void moveRight(const float &delta);
 };

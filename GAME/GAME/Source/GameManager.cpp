@@ -15,7 +15,6 @@ void GameManager::loadContent() {
 
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
-	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/Thalia2.png");
 
 	for(auto i = 1; i<=7; i++)
 		TextureManager::loadTexture("Sprite_Jump" + std::to_string(i), "../Release/Thalia/ThaliaJump" + std::to_string(i) + ".png");
@@ -23,6 +22,7 @@ void GameManager::loadContent() {
 	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia/ThaliaJump7.png");
 	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/ThaliaJump7.png");
 	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/ThaliaJump7.png");
+
 	currentWindow.setFramerateLimit(40);
 	viewMenu.setSize(currentWindow.getSize().x,currentWindow.getSize().y);
 	viewGame.setSize(currentWindow.getSize().x, currentWindow.getSize().y);
@@ -45,8 +45,18 @@ void GameManager::setLevel(const std::string levelContent)
 		currentLevel->removeCharacter(content);
 		player = new PercyJackson();
 		enemy = new Enemy();
+		auto* enemy1 = new Enemy();
+		auto* enemy2 = new Enemy();
+		enemy->setLocation(grim::Vector2(1000, 400));
+		enemy1->setLocation(grim::Vector2(1700, 800));
+		enemy2->setLocation(grim::Vector2(1700, 100));
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
+		currentLevel->addStaticObjects(enemy->getSprite().getGlobalBounds());
+		currentLevel->addStaticObjects(enemy1->getSprite().getGlobalBounds());
+		currentLevel->addStaticObjects(enemy2->getSprite().getGlobalBounds());
+		currentLevel->addCharacter(enemy1);
+		currentLevel->addCharacter(enemy2);
 	}
 }
 
@@ -65,7 +75,6 @@ void GameManager::runGame() {
 				gameStatus = Status::cleaningUp;
 			}
 		}
-		currentWindow.clear(backgroundColor);
 		currentWindow.clear();
 		currentLevel->updateLevel(deltaTime, event);
 		currentLevel->draw();

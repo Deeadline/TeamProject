@@ -36,9 +36,32 @@ void PercyJackson::setSprite(const bool isLeft) {
 	if (canMove) {
 		(!isLeft) ? sprite.setScale(1, 1) : sprite.setScale(-1, 1);
 		if (!canJump) {
-			sprite.setTexture(*(TextureManager::getTexture("Sprite_Jump" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1))));
+			if (jumpCycle > 0 && jumpCycle < 8)
+				sprite.setTexture(*TextureManager::getTexture("Sprite_Jump2"));
+			else if (jumpCycle > 8 && jumpCycle < 23)
+				sprite.setTexture(*TextureManager::getTexture("Sprite_Jump3"));
+			else if (jumpCycle > 23 && jumpCycle < 33)
+				sprite.setTexture(*TextureManager::getTexture("Sprite_Jump4"));
+			else if (jumpCycle > 33 && jumpCycle < 48)
+				sprite.setTexture(*TextureManager::getTexture("Sprite_Jump5"));
+			else
+				sprite.setTexture(*TextureManager::getTexture("Sprite_Jump6"));
+		}
 		else {
-		sprite.setTexture(*(TextureManager::getTexture("Sprite_Side" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1))));
+			sprite.setTexture(*TextureManager::getTexture("Sprite_Side" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1)));
 		}
 	}
+}
+
+bool PercyJackson::isCollidingWithAnything() {
+	sf::FloatRect collider(sf::Vector2f(location.x - 95, location.y - 180), sf::Vector2f(190, 360));
+	auto colliders = GameManager::instance().getLevel()->getAllColliders();
+	for(auto* Icollider: colliders) {
+		grim::Vector2 colliderLoc = Icollider->getLocation();
+		sf::FloatRect EIcolliders(sf::Vector2f(colliderLoc.x, colliderLoc.y), sf::Vector2f(190, 360));
+		if (EIcolliders.intersects(collider))
+			return true;
+	}
+	return false;
+
 }

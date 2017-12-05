@@ -1,4 +1,6 @@
 #include "..\Include\Level.hpp"
+#include "../Include/Enemy.hpp"
+
 Level::Level() {
 
 }
@@ -32,6 +34,17 @@ bool Level::existCharacter(CharacterMechanics* character) const {
 	return std::find(charactersCollector.begin(), charactersCollector.end(), character) != charactersCollector.end();
 }
 
+std::vector<CharacterMechanics*> Level::getAllColliders() {
+	std::vector<CharacterMechanics*> actors;
+	for(auto* actor: charactersCollector) {
+		auto* enemy = dynamic_cast<Enemy*>(actor);
+		if(enemy) {
+			actors.push_back(actor);
+		}
+	}
+	return actors;
+}
+
 std::size_t Level::cleanLevel() {
 	std::size_t charactersCount = charactersCollector.size();
 	for (auto *character : charactersCollector) {
@@ -51,3 +64,18 @@ void Level::draw() {
 		charactersCollector[i]->draw();
 	}
 }
+
+void Level::addStaticObjects(sf::Rect<float> rectangle) {
+	staticObjectList.push_back(rectangle);
+}
+bool Level::checkCollision(sf::Rect<float> rectangle) {
+	std::cout << "my x1: " << rectangle.left << "x2: " << rectangle.left + rectangle.width << std::endl;
+	for(const auto i : staticObjectList){
+		std::cout << " en x1: " << i.left << "x2: " << i.left + i.width << std::endl;
+		if (rectangle.intersects(i))
+			return true;
+	}
+	return false;
+	std::cout << std::endl;
+}
+

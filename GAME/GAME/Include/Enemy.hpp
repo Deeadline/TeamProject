@@ -12,9 +12,10 @@ public:
 	inline void setCanMove(bool type) { canMove = type; }
 	inline bool getCanMove() const { return canMove; }
 	void setSprite();
-	inline sf::Sprite getSprite() const { return sprite; }
+	inline sf::RectangleShape getSprite() const { return rectangleShape; }
 private:
 	int moveFlag;
 	bool canMove;
 	sf::Sprite sprite;
+	sf::RectangleShape rectangleShape;
 };

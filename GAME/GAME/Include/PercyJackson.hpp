@@ -10,31 +10,29 @@ public:
 	inline void incrementMoveFlag() { moveFlag++; }
 	inline void setMoveFlag() { moveFlag = 0; }
 	inline int getMoveFlag() const { return moveFlag; }
-
-	void setCanJump(const bool canJump) { this->canJump = canJump; }
-	inline bool getCanJump() { return canJump; }
-
+	void incrementJumpCycle() { jumpCycle++; }
+	int getJumpCycle() { return jumpCycle; }
+	void setJumpCycle(int jumpCycle) { this->jumpCycle = jumpCycle; }
+	bool getIsLeft() { return isLeft; }
 	void setSprite(const bool);
 	inline sf::Sprite getSprite() const { return sprite; }
 	inline void setIsMenu(const bool isMenu) { this->isMenu = isMenu; }
 	inline bool getIsMenu() const { return isMenu; }
-	inline bool getIsLeft() const { return isLeft; }
 	inline void setCanMove(const bool canMove) { this->canMove = canMove; }
 	inline bool getCanMove() const { return canMove; }
   
-	inline void setCanJump(bool canJump) { this->canJump = canJump; }
+	inline void setCanJump(const bool canJump) { this->canJump = canJump; }
 	inline bool getCanJump() const { return canJump; }
-
-	double getTime(clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
+	bool isCollidingWithAnything();
 	static double getTime(const clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
 private:
 	sf::Sprite sprite;
 	sf::Sprite background;
 	int moveFlag;
-	bool canJump;
+	bool isLeft;
 	bool isMenu;
 	bool canMove;
 	bool canJump;
 	double time;
-	bool isLeft;
+	unsigned jumpCycle;
 };
