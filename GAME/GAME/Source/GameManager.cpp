@@ -1,5 +1,6 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/TextureManager.hpp"
+#include "../Include/Tile.hpp"
 
 #include <Windows.h>
 GameManager::GameManager() : gameStatus(Status::initializing),
@@ -9,6 +10,8 @@ GameManager::GameManager() : gameStatus(Status::initializing),
 	loadContent();
 }
 void GameManager::loadContent() {
+	TextureManager::loadTexture("Arrow", "../Release/Arrow.png");
+	TextureManager::loadTexture("Klocek", "../Release/Klocek.png");
 
 	for (auto i = 1; i <= 12; i++)
 		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia/Thalia" + std::to_string(i) + ".png");
@@ -45,18 +48,22 @@ void GameManager::setLevel(const std::string levelContent)
 		currentLevel->removeCharacter(content);
 		player = new PercyJackson();
 		enemy = new Enemy();
-		auto* enemy1 = new Enemy();
-		auto* enemy2 = new Enemy();
-		enemy->setLocation(grim::Vector2(1000, 400));
-		enemy1->setLocation(grim::Vector2(1700, 800));
-		enemy2->setLocation(grim::Vector2(1700, 100));
+
+		std::vector<Tile*> tileCollector;
+		tileCollector.push_back(new Tile);
+		tileCollector.push_back(new Tile);
+		tileCollector.push_back(new Tile);
+		tileCollector.push_back(new Tile);
+		tileCollector[0]->setLocation(grim::Vector2(1000, 400));
+		tileCollector[1]->setLocation(grim::Vector2(500, 800));
+		tileCollector[2]->setLocation(grim::Vector2(1700, 100));
+		tileCollector[3]->setLocation(grim::Vector2(500, 200));
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
-		currentLevel->addStaticObjects(enemy->getSprite().getGlobalBounds());
-		currentLevel->addStaticObjects(enemy1->getSprite().getGlobalBounds());
-		currentLevel->addStaticObjects(enemy2->getSprite().getGlobalBounds());
-		currentLevel->addCharacter(enemy1);
-		currentLevel->addCharacter(enemy2);
+		currentLevel->addCharacter(tileCollector[0]);
+		currentLevel->addCharacter(tileCollector[1]);
+		currentLevel->addCharacter(tileCollector[2]);
+		currentLevel->addCharacter(tileCollector[3]);
 	}
 }
 

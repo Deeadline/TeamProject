@@ -2,7 +2,7 @@
 #include "..\Include\GameManager.hpp"
 #include "..\Include\TextureManager.hpp"
 
-PercyJackson::PercyJackson(): Player(new PercyJacksonController), moveFlag(0), canJump(true), isMenu(false), canMove(true) {
+PercyJackson::PercyJackson(): Player(new PercyJacksonController), moveFlag(0), canJump(true), canShoot(true), isMenu(false), canMove(true), isArrow(false) {
 	setLocation(grim::Vector2(95, 800));
 	setViewLocation(grim::Vector2(420,540));
 	background.setTexture(*(TextureManager::getTexture("tlo")));
@@ -58,7 +58,7 @@ bool PercyJackson::isCollidingWithAnything() {
 	auto colliders = GameManager::instance().getLevel()->getAllColliders();
 	for(auto* Icollider: colliders) {
 		grim::Vector2 colliderLoc = Icollider->getLocation();
-		sf::FloatRect EIcolliders(sf::Vector2f(colliderLoc.x, colliderLoc.y), sf::Vector2f(190, 360));
+		sf::FloatRect EIcolliders(sf::Vector2f(colliderLoc.x, colliderLoc.y), sf::Vector2f(64, 64));
 		if (EIcolliders.intersects(collider))
 			return true;
 	}

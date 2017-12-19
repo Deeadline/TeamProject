@@ -15,8 +15,11 @@ public:
 	virtual void draw() = 0;
 	inline grim::Vector2 getLocation() const { return location; }
 	inline float getRotation() const { return rotation; }
+	inline void setDestroyed(const bool destroyed) { this->destroyed = destroyed; }
+	inline bool getIsDestroyed() const { return destroyed; }
 protected:
 	grim::Vector2 location;
 	grim::Vector2 viewLocation;
 	float rotation;
+	bool destroyed;
 };

@@ -1,6 +1,6 @@
 #include "..\Include\Player.hpp"
 
-Player::Player(PlayerController *controller) :controller(nullptr) {
+Player::Player(PlayerController *controller) :controller(nullptr), healthPoint(100), damage(10) {
 	if (controller && controller->isPossess(this)) {
 		this->controller = controller;
 	}

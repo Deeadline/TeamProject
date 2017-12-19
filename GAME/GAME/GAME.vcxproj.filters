@@ -60,6 +60,18 @@
     <ClCompile Include="Source\EnemyController.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ProjectTile.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ProjectTileController.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TileController.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\CharacterMechanic.hpp">
@@ -108,6 +120,18 @@
       <Filter>Header Files\Include</Filter>
     </ClInclude>
     <ClInclude Include="Include\EnemyController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ProjectTile.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ProjectTileController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Tile.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TileController.hpp">
       <Filter>Header Files\Include</Filter>
     </ClInclude>
   </ItemGroup>

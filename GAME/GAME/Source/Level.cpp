@@ -1,5 +1,6 @@
-#include "..\Include\Level.hpp"
-#include "../Include/Enemy.hpp"
+#include "../Include/Level.hpp"
+#include "../Include/ProjectTile.hpp"
+#include "../Include/Tile.hpp"
 
 Level::Level() {
 
@@ -37,8 +38,8 @@ bool Level::existCharacter(CharacterMechanics* character) const {
 std::vector<CharacterMechanics*> Level::getAllColliders() {
 	std::vector<CharacterMechanics*> actors;
 	for(auto* actor: charactersCollector) {
-		auto* enemy = dynamic_cast<Enemy*>(actor);
-		if(enemy) {
+		auto* tile = dynamic_cast<Tile*>(actor);
+		if(tile) {
 			actors.push_back(actor);
 		}
 	}
@@ -56,6 +57,11 @@ std::size_t Level::cleanLevel() {
 void Level::updateLevel(const float &deltaTime, sf::Event &event) {
 	for (auto i = 0u; i < charactersCollector.size();i++) {
 		charactersCollector[i]->update(deltaTime, event);
+		if (charactersCollector[i]->getIsDestroyed()) {
+			delete charactersCollector[i];
+			charactersCollector.erase(charactersCollector.begin() + i);
+			i--;
+		}
 	}
 }
 
@@ -65,17 +71,16 @@ void Level::draw() {
 	}
 }
 
-void Level::addStaticObjects(sf::Rect<float> rectangle) {
-	staticObjectList.push_back(rectangle);
-}
 bool Level::checkCollision(sf::Rect<float> rectangle) {
-	std::cout << "my x1: " << rectangle.left << "x2: " << rectangle.left + rectangle.width << std::endl;
-	for(const auto i : staticObjectList){
-		std::cout << " en x1: " << i.left << "x2: " << i.left + i.width << std::endl;
-		if (rectangle.intersects(i))
-			return true;
+	for(const auto i : charactersCollector){
+		auto* tile = dynamic_cast<Tile*>(i);
+		if (tile) {
+			if (rectangle.intersects(tile->getSprite().getGlobalBounds())) {
+				std::cout << "Rectangle TLHW" << rectangle.top << " " << rectangle.left << " " << rectangle.height << " " << rectangle.width << std::endl;
+				std::cout << "Tile TLHW" << tile->getSprite().getGlobalBounds().top << " " << tile->getSprite().getGlobalBounds().left << " " << tile->getSprite().getGlobalBounds().height << " " << tile->getSprite().getGlobalBounds().width << std::endl;
+				return true;
+			}
+		}
 	}
 	return false;
-	std::cout << std::endl;
 }
-

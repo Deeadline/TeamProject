@@ -9,7 +9,10 @@ private:
 	const float gravity;
 	grim::Vector2f velocity;
 	unsigned jumpCycle;
+	unsigned count;
 	void jump(const float &deltaTime);
+	void fall(const float &deltaTime);
+	void shoot(const float &deltaTime);
 	void moveLeft(const float &delta);
 	void moveRight(const float &delta);
 };

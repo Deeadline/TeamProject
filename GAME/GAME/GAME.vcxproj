@@ -138,7 +138,11 @@
     <ClCompile Include="Source\PercyJacksonController.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayerController.cpp" />
+    <ClCompile Include="Source\ProjectTile.cpp" />
+    <ClCompile Include="Source\ProjectTileController.cpp" />
     <ClCompile Include="Source\TextureManager.cpp" />
+    <ClCompile Include="Source\Tile.cpp" />
+    <ClCompile Include="Source\TileController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\CharacterMechanic.hpp" />
@@ -156,7 +160,11 @@
     <ClInclude Include="Include\PercyJacksonController.hpp" />
     <ClInclude Include="Include\Player.hpp" />
     <ClInclude Include="Include\PlayerController.hpp" />
+    <ClInclude Include="Include\ProjectTile.hpp" />
+    <ClInclude Include="Include\ProjectTileController.hpp" />
     <ClInclude Include="Include\TextureManager.hpp" />
+    <ClInclude Include="Include\Tile.hpp" />
+    <ClInclude Include="Include\TileController.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

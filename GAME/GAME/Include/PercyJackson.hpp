@@ -20,9 +20,12 @@ public:
 	inline bool getIsMenu() const { return isMenu; }
 	inline void setCanMove(const bool canMove) { this->canMove = canMove; }
 	inline bool getCanMove() const { return canMove; }
-  
+	inline bool getArrow() const { return isArrow; }
+	inline void setArrow(const bool isArrow) { this->isArrow = isArrow; }
 	inline void setCanJump(const bool canJump) { this->canJump = canJump; }
 	inline bool getCanJump() const { return canJump; }
+	inline void setCanShoot(const bool canShoot) { this->canShoot = canShoot; }
+	inline bool getCanShoot() const { return canShoot; }
 	bool isCollidingWithAnything();
 	static double getTime(const clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
 private:
@@ -33,6 +36,8 @@ private:
 	bool isMenu;
 	bool canMove;
 	bool canJump;
+	bool canShoot;
+	bool isArrow;
 	double time;
 	unsigned jumpCycle;
 };

@@ -13,9 +13,7 @@ public:
 	void updateLevel(const float &deltaTime, sf::Event &event);
 	void draw();
 	inline std::size_t countCharacter() const { return charactersCollector.size(); }
-	void addStaticObjects(sf::Rect<float>);
 	bool checkCollision(sf::Rect<float>);
 private:
 	std::vector<CharacterMechanics *> charactersCollector;
-	std::vector<sf::Rect<float>> staticObjectList;
 };

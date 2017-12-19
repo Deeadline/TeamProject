@@ -1,13 +1,12 @@
 #pragma once
+#include "Includers.hpp"
 #include "PlayerController.hpp"
-#include "Enemy.hpp"
 
-class EnemyController :public PlayerController {
+class ProjectTileController : public PlayerController {
 public:
-	EnemyController();
+	ProjectTileController();
 	virtual void update(const float &deltaTime, sf::Event &event) override;
 private:
 	float moveSpeed;
-	void shoot(const float &deltaTime);
-	unsigned count;
 };
+
