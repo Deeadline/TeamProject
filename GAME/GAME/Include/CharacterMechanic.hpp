@@ -7,6 +7,7 @@ public:
 	inline virtual ~CharacterMechanics() {  }
 	inline virtual void setLocation(const grim::Vector2 &location) { this->location = location; }
 	inline virtual void setViewLocation(const grim::Vector2 &viewLocation) { this->viewLocation = viewLocation; }
+	inline virtual grim::Vector2 getViewLocation() { return this->viewLocation; }
 	inline virtual void setRotation(const float &rotation) { this->rotation = rotation; }
 	inline void move(const grim::Vector2 &delta) { this->setLocation(location + delta); }
 	inline void moveView(const grim::Vector2 &delta) { this->setViewLocation(viewLocation + delta); }

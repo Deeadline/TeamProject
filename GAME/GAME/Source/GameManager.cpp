@@ -44,26 +44,51 @@ GameManager::~GameManager() {
 }
 void GameManager::setLevel(const std::string levelContent)
 {
+	enemy = new Enemy();
+	if(player == nullptr) {
+		player = new PercyJackson();
+	}
 	if (levelContent == "newGame") {
 		currentLevel->removeCharacter(content);
-		player = new PercyJackson();
-		enemy = new Enemy();
 
 		std::vector<Tile*> tileCollector;
-		tileCollector.push_back(new Tile);
-		tileCollector.push_back(new Tile);
-		tileCollector.push_back(new Tile);
-		tileCollector.push_back(new Tile);
-		tileCollector[0]->setLocation(grim::Vector2(1000, 400));
-		tileCollector[1]->setLocation(grim::Vector2(500, 800));
-		tileCollector[2]->setLocation(grim::Vector2(1700, 100));
-		tileCollector[3]->setLocation(grim::Vector2(500, 200));
+		for (auto i = 0; i <= 6; i++) {
+			tileCollector.push_back(new Tile);
+		}
+		tileCollector[0]->setLocation(grim::Vector2(1800, 400));
+		tileCollector[1]->setLocation(grim::Vector2(1864, 400));
+		tileCollector[2]->setLocation(grim::Vector2(1928, 400));
+		tileCollector[5]->setLocation(grim::Vector2(1972, 400));
+		tileCollector[3]->setLocation(grim::Vector2(2036, 400));
+		tileCollector[6]->setLocation(grim::Vector2(1700, 600));
+		tileCollector[4]->setLocation(grim::Vector2(1600, 800));
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
-		currentLevel->addCharacter(tileCollector[0]);
-		currentLevel->addCharacter(tileCollector[1]);
-		currentLevel->addCharacter(tileCollector[2]);
-		currentLevel->addCharacter(tileCollector[3]);
+		for (auto i = 0; i <= 6; i++)
+			currentLevel->addCharacter(tileCollector[i]);
+	}
+	if(levelContent == "Medusa") {
+		for(auto* character : currentLevel->getCharacters()) {
+			std::cout << character->getLocation().x << std::endl;
+			if(character != player)
+				currentLevel->removeCharacter(character);
+		}
+
+		std::vector<Tile*> tileCollector;
+		for (auto i = 0; i <= 6; i++) {
+			tileCollector.push_back(new Tile);
+		}
+		tileCollector[0]->setLocation(grim::Vector2(1800, 400));
+		tileCollector[1]->setLocation(grim::Vector2(1864, 400));
+		tileCollector[2]->setLocation(grim::Vector2(1928, 400));
+		tileCollector[5]->setLocation(grim::Vector2(1972, 400));
+		tileCollector[3]->setLocation(grim::Vector2(2036, 400));
+		tileCollector[6]->setLocation(grim::Vector2(1700, 600));
+		tileCollector[4]->setLocation(grim::Vector2(1600, 800));
+		currentLevel->addCharacter(player);
+		currentLevel->addCharacter(enemy);
+		for (auto i = 0; i <= 6; i++)
+			currentLevel->addCharacter(tileCollector[i]);
 	}
 }
 

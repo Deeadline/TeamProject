@@ -12,7 +12,7 @@ public:
 	inline int getMoveFlag() const { return moveFlag; }
 	void incrementJumpCycle() { jumpCycle++; }
 	int getJumpCycle() { return jumpCycle; }
-	void setJumpCycle(int jumpCycle) { this->jumpCycle = jumpCycle; }
+	void setJumpCycle(const int jumpCycle) { this->jumpCycle = jumpCycle; }
 	bool getIsLeft() { return isLeft; }
 	void setSprite(const bool);
 	inline sf::Sprite getSprite() const { return sprite; }

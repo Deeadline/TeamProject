@@ -15,14 +15,15 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 	}
 	else {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
-			(tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime)){
+			(tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) < 3505){
 			//this->moveRight(moveSpeed*deltaTime);
 			auto temp = tempOwner->getSprite().getGlobalBounds();
-			temp.left += 10;
-			temp.top -= 10;
+			temp.left += 20;
+			temp.top -= 20;
 			if (!GameManager::instance().getLevel()->checkCollision(temp)) {
 				owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
-				owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
+				if(tempOwner->getSprite().getPosition().x < 2850)
+					owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
 			}
 				//std::cout << "X: " << tempOwner->getLocation().x << " Y: " << tempOwner->getLocation().y << std::endl;
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
@@ -35,11 +36,12 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			((tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime))>95) {
 			//this->moveLeft(-moveSpeed*deltaTime);
 			auto temp = tempOwner->getSprite().getGlobalBounds();
-			temp.left -= 10;
-			temp.top -= 10;
+			temp.left -= 20;
+			temp.top -= 20;
 			if (!GameManager::instance().getLevel()->checkCollision(temp)) {
 				owner->move(grim::Vector2(-moveSpeed*deltaTime, 0));
-				owner->moveView(grim::Vector2(-moveSpeed*deltaTime, 0));
+				if (tempOwner->getSprite().getPosition().x < 2850)
+					owner->moveView(grim::Vector2(-moveSpeed*deltaTime, 0));
 			}
 				//std::cout << "X: " << tempOwner->getLocation().x << " Y: " << tempOwner->getLocation().y << std::endl;
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
@@ -65,29 +67,35 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			velocity.y = -sqrtf(2.f*gravity*moveSpeed);
 			jump(deltaTime);
 		}
+		if(static_cast<int>(tempOwner->getSprite().getPosition().x) > 1500 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+			GameManager::instance().setLevel("Medusa");
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewMenu());
 			tempOwner->setCanMove(false);
 			tempOwner->setIsMenu(true);
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-			std::cout << "HP Enemy:" << GameManager::instance().getEnemy()->getHealthPoint() << std::endl;
-			if(tempOwner->getSprite().getGlobalBounds().intersects(GameManager::instance().getEnemy()->getSprite().getGlobalBounds())) {
-				GameManager::instance().getEnemy()->setHealth(GameManager::instance().getEnemy()->getHealthPoint() - tempOwner->getDamage());
+			if (GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
+				if (tempOwner->getSprite().getGlobalBounds().intersects(GameManager::instance().getEnemy()->getSprite().getGlobalBounds())) {
+					GameManager::instance().getEnemy()->setHealth(GameManager::instance().getEnemy()->getHealthPoint() - tempOwner->getDamage());
+				}
+				if (GameManager::instance().getEnemy()->getHealthPoint() <= 0) {
+					GameManager::instance().getEnemy()->setDestroyed(true);
+					std::cout << "Zabili go i uciek" << std::endl;
+				}
 			}
-			if(GameManager::instance().getEnemy()->getHealthPoint() <= 0 && GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
-				GameManager::instance().getEnemy()->setDestroyed(true);
-				std::cout << GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy());
-				std::cout << "Zabili go i uciek" << std::endl;
+			else {
+				std::cout << "Nie istnieje" << std::endl;
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::X) && tempOwner->getCanShoot()) {
-			tempOwner->setArrow(true);
-			tempOwner->setCanShoot(false);
-			count = 0;
-			shoot(deltaTime);
+				tempOwner->setArrow(true);
+				tempOwner->setCanShoot(false);
+				count = 0;
+				shoot(deltaTime);
 		}
-		if (!tempOwner->getCanShoot()) { //jeżeli postać jest w trakcie skoku, wykona sie funkcja jump
+		if (!tempOwner->getCanShoot()) {
 			shoot(deltaTime);
 		}
 	}
@@ -97,7 +105,7 @@ void PercyJacksonController::jump(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<PercyJackson*>(owner);
 	if (tempOwner->getJumpCycle() > 8 && tempOwner->getJumpCycle() < 23) {
 		auto temp = tempOwner->getSprite().getGlobalBounds();
-		temp.top -= 10;
+		temp.top -= 20;
 		if (!GameManager::instance().getLevel()->checkCollision(temp)) {
 			owner->move(velocity*deltaTime);
 		}

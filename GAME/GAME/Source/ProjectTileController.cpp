@@ -12,12 +12,14 @@ void ProjectTileController::update(const float& deltaTime, sf::Event& event) {
 	else
 		tempTile->move(grim::Vector2(deltaTime*moveSpeed, 0));
 	if (tempTile->getOwner()) {
-		if (tempTile->getSprite().getGlobalBounds().intersects(GameManager::instance().getEnemy()->getSprite().getGlobalBounds())) {
-			GameManager::instance().getEnemy()->setHealth(GameManager::instance().getEnemy()->getHealthPoint() - tempTile->getDamage());
-			tempTile->setDestroyed(true);
-			if (GameManager::instance().getEnemy()->getHealthPoint() <= 0 && GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
-				GameManager::instance().getEnemy()->setDestroyed(true);
-				std::cout << "Zabili go i uciek" << std::endl;
+		if (GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
+			if (tempTile->getSprite().getGlobalBounds().intersects(GameManager::instance().getEnemy()->getSprite().getGlobalBounds())) {
+				GameManager::instance().getEnemy()->setHealth(GameManager::instance().getEnemy()->getHealthPoint() - tempTile->getDamage());
+				tempTile->setDestroyed(true);
+				if (GameManager::instance().getEnemy()->getHealthPoint() <= 0 && GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
+					GameManager::instance().getEnemy()->setDestroyed(true);
+
+				}
 			}
 		}
 	}

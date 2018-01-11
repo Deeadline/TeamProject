@@ -76,8 +76,6 @@ bool Level::checkCollision(sf::Rect<float> rectangle) {
 		auto* tile = dynamic_cast<Tile*>(i);
 		if (tile) {
 			if (rectangle.intersects(tile->getSprite().getGlobalBounds())) {
-				std::cout << "Rectangle TLHW" << rectangle.top << " " << rectangle.left << " " << rectangle.height << " " << rectangle.width << std::endl;
-				std::cout << "Tile TLHW" << tile->getSprite().getGlobalBounds().top << " " << tile->getSprite().getGlobalBounds().left << " " << tile->getSprite().getGlobalBounds().height << " " << tile->getSprite().getGlobalBounds().width << std::endl;
 				return true;
 			}
 		}

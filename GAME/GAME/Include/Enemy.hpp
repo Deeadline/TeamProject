@@ -15,14 +15,15 @@ public:
 	inline void setCycle(const int cycle) { this->cycle = cycle; }
 	inline int getCycle() const { return cycle; }
 	void setSprite(int);
-	inline sf::RectangleShape getSprite() const { return rectangleShape; }
-	void setCanShoot(const bool canShoot) { this->canShoot = canShoot; }
-	bool getCanShoot() const { return canShoot; }
+	inline void setCanShoot(const bool canShoot) { this->canShoot = canShoot; }
+	inline bool getCanShoot() const { return canShoot; }
+	inline sf::Sprite getSprite() const { return sprite; }
 private:
 	int moveFlag;
 	int cycle;
 	bool canMove;
 	bool canShoot;
 	sf::Sprite sprite;
-	sf::RectangleShape rectangleShape;
+	sf::Text healttText;
+	void setString();
 };

@@ -37,7 +37,7 @@ void MenuManagerController::update(const float &deltaTime, sf::Event &event) {
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				GameManager::instance().setLevel("newGame");
 			}
-			else if ((tempOwner->getNewGameContent(2).getGlobalBounds().contains(mouse) ||
+			/*else if ((tempOwner->getNewGameContent(2).getGlobalBounds().contains(mouse) ||
 				tempOwner->getSpriteBounds(1).contains(mouse)) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				GameManager::instance().setLevel("newGame");
@@ -46,7 +46,7 @@ void MenuManagerController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->getSpriteBounds(2).contains(mouse)) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				GameManager::instance().setLevel("newGame");
-			}
+			}*/
 			else if (tempOwner->getNewGameContent(4).getGlobalBounds().contains(mouse) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				tempOwner->setFlag(false);

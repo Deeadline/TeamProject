@@ -8,6 +8,7 @@ public:
 	bool addCharacter(CharacterMechanics* character);
 	bool removeCharacter(CharacterMechanics* character);
 	bool existCharacter(CharacterMechanics* character) const;
+	std::vector<CharacterMechanics*> getCharacters() { return charactersCollector; }
 	std::vector<CharacterMechanics*> getAllColliders();
 	std::size_t cleanLevel();
 	void updateLevel(const float &deltaTime, sf::Event &event);
