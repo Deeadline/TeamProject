@@ -16,12 +16,15 @@ public:
 	inline int getCycle() const { return cycle; }
 	void setSprite(int);
 	inline void setCanShoot(const bool canShoot) { this->canShoot = canShoot; }
+	void setDirection(const bool direction) { this->direction = direction; }
+	bool getDirection() const { return direction; }
 	inline bool getCanShoot() const { return canShoot; }
 	inline sf::Sprite getSprite() const { return sprite; }
 private:
 	int moveFlag;
 	int cycle;
 	bool canMove;
+	bool direction;
 	bool canShoot;
 	sf::Sprite sprite;
 	sf::Text healttText;

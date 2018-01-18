@@ -25,7 +25,8 @@ public:
 	void setLevel(std::string levelContent);
 	void runGame();
 	inline sf::Font getFont() const { return font; }
-	inline void setStatus(enum Status gameStatus) { this->gameStatus = gameStatus; }
+	inline void setStatus(const enum Status gameStatus) { this->gameStatus = gameStatus; }
+	inline std::string getLevelName() { return levelContent; }
 	inline sf::View& getViewGame() { return viewGame; }
 	inline sf::View& getViewMenu() { return viewMenu; }
 protected:
@@ -43,4 +44,5 @@ private:
 	sf::View viewMenu;
 	sf::View viewGame;
 	sf::Font font;
+	std::string levelContent;
 };

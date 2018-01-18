@@ -6,7 +6,6 @@
 
 Tile::Tile() : Player(new TileController) {
 	sprite.setTexture(*TextureManager::getTexture("Klocek"));
-	//sprite.setOrigin(32, 32);
 }
 
 void Tile::draw() {

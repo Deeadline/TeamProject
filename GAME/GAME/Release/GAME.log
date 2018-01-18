@@ -1,10 +1,7 @@
-﻿  GameManager.cpp
-Source\GameManager.cpp(30): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-Source\GameManager.cpp(31): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-Source\GameManager.cpp(32): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+﻿  PercyJackson.cpp
   Generating code
-  3 of 667 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  3 of 675 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    13 functions had inline decision re-evaluated but remain unchanged
+    5 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   GAME.vcxproj -> D:\TeamProject\GAME\Release\GAME.exe

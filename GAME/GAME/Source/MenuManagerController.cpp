@@ -18,12 +18,6 @@ void MenuManagerController::update(const float &deltaTime, sf::Event &event) {
 			tempOwner->setFlag(true);
 			tempOwner->setStatus(MenuManager::menuState::load);
 		}
-		else if (tempOwner->getMenuContent(2).getGlobalBounds().contains(mouse) &&
-			sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-			tempOwner->setFlag(true);
-			tempOwner->setStatus(MenuManager::menuState::options);
-
-		}
 		else if ((tempOwner->getMenuContent(3).getGlobalBounds().contains(mouse) &&
 			sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) ||
 			(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))) {
@@ -35,18 +29,8 @@ void MenuManagerController::update(const float &deltaTime, sf::Event &event) {
 			if ((tempOwner->getNewGameContent(1).getGlobalBounds().contains(mouse) ||
 				tempOwner->getSpriteBounds(0).contains(mouse))&&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				GameManager::instance().setLevel("newGame");
+				GameManager::instance().setLevel("Introduce");
 			}
-			/*else if ((tempOwner->getNewGameContent(2).getGlobalBounds().contains(mouse) ||
-				tempOwner->getSpriteBounds(1).contains(mouse)) &&
-				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				GameManager::instance().setLevel("newGame");
-			}
-			else if ((tempOwner->getNewGameContent(3).getGlobalBounds().contains(mouse) ||
-				tempOwner->getSpriteBounds(2).contains(mouse)) &&
-				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				GameManager::instance().setLevel("newGame");
-			}*/
 			else if (tempOwner->getNewGameContent(4).getGlobalBounds().contains(mouse) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				tempOwner->setFlag(false);
@@ -62,20 +46,6 @@ void MenuManagerController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->setFlag(false);
 			}
 			else if (tempOwner->getLoadContent(3).getGlobalBounds().contains(mouse) &&
-				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				tempOwner->setFlag(false);
-			}
-		}
-		else if (tempOwner->getStatus() == MenuManager::menuState::options) {
-			if (tempOwner->getOptionsContent(1).getGlobalBounds().contains(mouse) &&
-				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				tempOwner->setFlag(false);
-			}
-			else if (tempOwner->getOptionsContent(2).getGlobalBounds().contains(mouse) &&
-				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				tempOwner->setFlag(false);
-			}
-			else if (tempOwner->getOptionsContent(3).getGlobalBounds().contains(mouse) &&
 				sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				tempOwner->setFlag(false);
 			}

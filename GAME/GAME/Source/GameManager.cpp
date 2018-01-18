@@ -13,16 +13,27 @@ void GameManager::loadContent() {
 	TextureManager::loadTexture("Arrow", "../Release/Arrow.png");
 	TextureManager::loadTexture("Klocek", "../Release/Klocek.png");
 
-	for (auto i = 1; i <= 12; i++)
+	TextureManager::loadTexture("loading", "../Release/loadingScreen.png");
+
+	for (auto i = 1; i <= 12; i++) {
 		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia/Thalia" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Sprite_Side0" + std::to_string(i), "../Release/ThaliaWalkingCycleBowLast/ThaliaWalkBow" + std::to_string(i) + ".png");
+	}
+	TextureManager::loadTexture("Sprite_Attack1", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack1NoBow.png");
+	TextureManager::loadTexture("Sprite_Attack2", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack2NoBow.png");
+	TextureManager::loadTexture("Sprite_Attack01", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack1.png");
+	TextureManager::loadTexture("Sprite_Attack02", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack22.png");
+
 
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
 
-	for(auto i = 1; i<=7; i++)
+	for (auto i = 1; i <= 7; i++)
 		TextureManager::loadTexture("Sprite_Jump" + std::to_string(i), "../Release/Thalia/ThaliaJump" + std::to_string(i) + ".png");
+	for(auto i=1; i<=6;i++)
+		TextureManager::loadTexture("Sprite_Jump0" + std::to_string(i), "../Release/ThaliaJumpBow/ThaliaJumpBow" + std::to_string(i) + ".png");
 
-	TextureManager::loadTexture("Sprite_Combat1", "../Release/Thalia/ThaliaJump7.png");
+	TextureManager::loadTexture("Sprite_Combat1", "../Release/ThaliaJumpBow/ThaliaJumpBow1.png");
 	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/ThaliaJump7.png");
 	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/ThaliaJump7.png");
 
@@ -33,7 +44,7 @@ void GameManager::loadContent() {
 	currentWindow.setView(viewMenu);
 
 	if (!font.loadFromFile("../Release//Font/tillana.ttf")) {
-		MessageBox(NULL, "Font not found!", "ERROR", NULL); return;
+		MessageBox(NULL, "Font not found!", "ERROR", NULL);
 	}
 }
 GameManager::~GameManager() {
@@ -44,36 +55,21 @@ GameManager::~GameManager() {
 }
 void GameManager::setLevel(const std::string levelContent)
 {
+	this->levelContent = levelContent;
 	enemy = new Enemy();
 	if(player == nullptr) {
 		player = new PercyJackson();
 	}
-	if (levelContent == "newGame") {
+	if (levelContent == "Introduce") {
 		currentLevel->removeCharacter(content);
-
-		std::vector<Tile*> tileCollector;
-		for (auto i = 0; i <= 6; i++) {
-			tileCollector.push_back(new Tile);
-		}
-		tileCollector[0]->setLocation(grim::Vector2(1800, 400));
-		tileCollector[1]->setLocation(grim::Vector2(1864, 400));
-		tileCollector[2]->setLocation(grim::Vector2(1928, 400));
-		tileCollector[5]->setLocation(grim::Vector2(1972, 400));
-		tileCollector[3]->setLocation(grim::Vector2(2036, 400));
-		tileCollector[6]->setLocation(grim::Vector2(1700, 600));
-		tileCollector[4]->setLocation(grim::Vector2(1600, 800));
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
-		for (auto i = 0; i <= 6; i++)
-			currentLevel->addCharacter(tileCollector[i]);
 	}
 	if(levelContent == "Medusa") {
-		for(auto* character : currentLevel->getCharacters()) {
-			std::cout << character->getLocation().x << std::endl;
-			if(character != player)
-				currentLevel->removeCharacter(character);
-		}
-
+		std::cout << this->levelContent << std::endl;
+		currentLevel->cleanLevel();
+		player = new PercyJackson();
+		enemy = new Enemy();
 		std::vector<Tile*> tileCollector;
 		for (auto i = 0; i <= 6; i++) {
 			tileCollector.push_back(new Tile);

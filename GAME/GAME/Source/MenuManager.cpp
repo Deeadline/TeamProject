@@ -30,33 +30,25 @@ void MenuManager::draw() {
 				GameManager::instance().getWindow().draw(loadContent[i]);
 			}
 		}
-		else if (menuStatus == menuState::options) {
-			for (auto i = 0u; i < 4; i++) {
-				GameManager::instance().getWindow().draw(optionsContent[i]);
-			}
-		}
 	}
 }
 void MenuManager::setContent() {
-	sf::String temp[] = { "Nowa gra", "Wczytaj", "Opcje", L"WyjdŸ" };
+	sf::String temp[] = { "Nowa gra", "Wczytaj", L"WyjdŸ" };
 	sf::String temp1[] = { L"Wybierz postaæ", "Pierwsza", "Druga", "Trzecia", L"WyjdŸ" };
-	sf::String temp2[] = { L"Rozdzielczoœæ: ", "800x600", "1440x1080", L"WyjdŸ" };
-	sf::String temp3[] = { "Wczytaj: ", "Zapis gry 1", "Zapis gry 2", L"WyjdŸ" };
+	sf::String temp2[] = { "Wczytaj: ", "Zapis gry 1", "Zapis gry 2", L"WyjdŸ" };
 	for (auto i = 0u; i < 4; i++) {
-		menuContent[i].setFont(font);
-		menuContent[i].setCharacterSize(30);
-		menuContent[i].setString(temp[i]);
-
-		optionsContent[i].setFont(font);
-		optionsContent[i].setCharacterSize(30);
-		optionsContent[i].setString(temp2[i]);
+		if (i != 3)
+		{
+			menuContent[i].setFont(font);
+			menuContent[i].setCharacterSize(30);
+			menuContent[i].setString(temp[i]);
+		}
 
 		loadContent[i].setFont(font);
 		loadContent[i].setCharacterSize(30);
-		loadContent[i].setString(temp3[i]);
+		loadContent[i].setString(temp2[i]);
 
 		menuContent[i].setPosition(50.f, 50.f + i*50.f);
-		optionsContent[i].setPosition(200.f, 50.f + i*50.f);
 		loadContent[i].setPosition(200.f, 50.f + i*50.f);
 	}
 	for (auto i = 0u; i < 5; i++) {
@@ -78,7 +70,7 @@ void MenuManager::setLocation(const grim::Vector2 &location) {
 		sprite[i].setPosition(location.x + 300*(i+1), location.y + 250);
 	}
 }
-void MenuManager::updateContent(sf::Vector2f mouse) {
+void MenuManager::updateContent(const sf::Vector2f mouse) {
 	if (!flag) {
 		for (auto i = 0u; i < 4; i++) {
 			if (menuContent[i].getGlobalBounds().contains(mouse)) {
@@ -105,15 +97,6 @@ void MenuManager::updateContent(sf::Vector2f mouse) {
 				}
 				else
 					loadContent[i].setFillColor(sf::Color::Black);
-			}
-		}
-		else if (getStatus() == options) {
-			for (auto i = 1u; i < 4; i++) {
-				if (optionsContent[i].getGlobalBounds().contains(mouse)) {
-					optionsContent[i].setFillColor(sf::Color::Red);
-				}
-				else
-					optionsContent[i].setFillColor(sf::Color::Black);
 			}
 		}
 	}

@@ -7,7 +7,6 @@ public:
 	enum menuState {
 		newGame,
 		load,
-		options
 	};
 	MenuManager();
 	virtual void draw() override;
@@ -15,8 +14,7 @@ public:
 	sf::Text getMenuContent(const int number) { return menuContent[number]; }
 	sf::Text getNewGameContent(const int number) { return newGameContent[number]; }
 	sf::Text getLoadContent(const int number) { return loadContent[number]; }
-	sf::Text getOptionsContent(const int number) { return optionsContent[number]; }
-	void updateContent(sf::Vector2f);
+	void updateContent(const sf::Vector2f);
 	inline void setStatus(const enum menuState menuStatus) { this->menuStatus = menuStatus; }
 	inline menuState getStatus() const { return menuStatus; }
 	inline void setFlag(const bool flag) { this->flag = flag; }
@@ -27,7 +25,6 @@ private:
 	sf::Sprite background;
 	sf::Sprite sprite[3];
 	sf::Text menuContent[4];
-	sf::Text optionsContent[4];
 	sf::Text loadContent[4];
 	sf::Text newGameContent[5];
 	menuState menuStatus;

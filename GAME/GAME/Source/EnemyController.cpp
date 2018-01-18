@@ -17,7 +17,6 @@ void EnemyController::update(const float &deltaTime, sf::Event &event) {
 		if (tempOwner->getLocation().Distance(GameManager::instance().getPlayer()->getLocation()) > 800) {
 			if(tempOwner->getCycle() < 100) {
 				tempOwner->move(grim::Vector2(deltaTime*moveSpeed / 2, 0));
-				//std::cout << "Dist: " << tempOwner->getLocation().Distance(GameManager::instance().getPlayer()->getLocation()) << std::endl;
 				tempOwner->incrementMoveFlag();
 				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
 					tempOwner->setMoveFlag();
@@ -25,7 +24,6 @@ void EnemyController::update(const float &deltaTime, sf::Event &event) {
 			}
 			else {
 				tempOwner->move(grim::Vector2(-deltaTime*moveSpeed / 2, 0));
-				//std::cout << "Dist: " << tempOwner->getLocation().Distance(GameManager::instance().getPlayer()->getLocation()) << std::endl;
 				tempOwner->incrementMoveFlag();
 				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
 					tempOwner->setMoveFlag();
@@ -37,6 +35,10 @@ void EnemyController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->incrementCycle();
 		}
 		else {
+			if(GameManager::instance().getPlayer()->getLocation().x > tempOwner->getLocation().x)
+				tempOwner->setSprite(1);
+			else
+				tempOwner->setSprite(-1);
 			shoot(deltaTime);
 			if (tempOwner->getCanShoot()) {
 				tempOwner->setCanShoot(false);
@@ -48,7 +50,7 @@ void EnemyController::update(const float &deltaTime, sf::Event &event) {
 void EnemyController::shoot(const float& deltaTime) {
 	auto* tempOwner = dynamic_cast<Enemy*>(owner);
 	if (count == 0) {
-		auto* arrow = new ProjectTile(true,false);
+		auto* arrow = new ProjectTile(tempOwner->getDirection(),false);
 		GameManager::instance().getLevel()->addCharacter(arrow);
 	}
 	count++;

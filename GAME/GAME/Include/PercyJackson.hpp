@@ -27,17 +27,29 @@ public:
 	inline void setCanShoot(const bool canShoot) { this->canShoot = canShoot; }
 	inline bool getCanShoot() const { return canShoot; }
 	bool isCollidingWithAnything();
+	bool getCanAttack() { return canAttack; }
+	void setCanAttack(const bool attack) { this->canAttack = attack; }
+	int getAttackCycle() { return attackCycle; }
+	void setAttackCycle(const int attackCycle) { this->attackCycle = attackCycle; }
+	bool getLoading() { return loading; }
+	void setLoading(const bool loading) { this->loading = loading; }
+	void incrementAttackCycle() { attackCycle++; }
 	static double getTime(const clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
+
 private:
 	sf::Sprite sprite;
 	sf::Sprite background;
+	sf::Sprite loadingScreen;
 	int moveFlag;
 	bool isLeft;
 	bool isMenu;
 	bool canMove;
 	bool canJump;
 	bool canShoot;
+	int attackCycle;
 	bool isArrow;
+	bool loading;
+	bool canAttack;
 	double time;
 	unsigned jumpCycle;
 };
