@@ -72,6 +72,18 @@
     <ClCompile Include="Source\TileController.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameMenu.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\GameMenu.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\GameMenuController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameMenuController.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\CharacterMechanic.hpp">

@@ -32,6 +32,7 @@ public:
 	int getAttackCycle() { return attackCycle; }
 	void setAttackCycle(const int attackCycle) { this->attackCycle = attackCycle; }
 	bool getLoading() { return loading; }
+	int getWidth() { return width; }
 	void setLoading(const bool loading) { this->loading = loading; }
 	void incrementAttackCycle() { attackCycle++; }
 	static double getTime(const clock_t time) { return static_cast <double>(time) / CLOCKS_PER_SEC; }
@@ -40,6 +41,7 @@ private:
 	sf::Sprite sprite;
 	sf::Sprite background;
 	sf::Sprite loadingScreen;
+	int width;
 	int moveFlag;
 	bool isLeft;
 	bool isMenu;
@@ -52,4 +54,5 @@ private:
 	bool canAttack;
 	double time;
 	unsigned jumpCycle;
+	int checkpoint;
 };

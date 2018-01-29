@@ -3,13 +3,15 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/TextureManager.hpp"
 #include "../Include/TileController.hpp"
+#include <functional>
 
-Tile::Tile() : Player(new TileController) {
-	sprite.setTexture(*TextureManager::getTexture("Klocek"));
+Tile::Tile(const int x) : Player(new TileController) {
+	sprite.setTexture(*TextureManager::getTexture("Rock" + std::to_string(x)));
 }
 
 void Tile::draw() {
-	GameManager::instance().getWindow().draw(sprite);
+	if(!GameManager::instance().getPlayer()->getLoading() && !GameManager::instance().getPlayer()->getIsMenu())
+		GameManager::instance().getWindow().draw(sprite);
 }
 
 void Tile::setLocation(const grim::Vector2& location) {

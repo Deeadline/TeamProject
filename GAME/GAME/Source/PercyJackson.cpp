@@ -2,28 +2,45 @@
 #include "..\Include\GameManager.hpp"
 #include "..\Include\TextureManager.hpp"
 
-PercyJackson::PercyJackson(): Player(new PercyJacksonController),loading(false), moveFlag(0),canAttack(true), canJump(true), canShoot(true), isMenu(false), canMove(true), isArrow(false) {
+PercyJackson::PercyJackson(): Player(new PercyJacksonController),loading(false),checkpoint(0), moveFlag(0),canAttack(true), canJump(true), canShoot(true), isMenu(false), canMove(true), isArrow(false) {
 	setLocation(grim::Vector2(95, 800));
 	setViewLocation(grim::Vector2(420,540));
-	background.setTexture(*TextureManager::getTexture("tlo"));
 	loadingScreen.setTexture(*TextureManager::getTexture("loading"));
 	if (GameManager::instance().getLevelName() != "Medusa") {
 		sprite.setTexture(*TextureManager::getTexture("Sprite_Side1"), true);
+		background.setTexture(*TextureManager::getTexture("tlo"));
+		width = 3505;
 	}
 	else {
 		sprite.setTexture(*TextureManager::getTexture("Sprite_Side01"), true);
+		background.setTexture(*TextureManager::getTexture("shop"));
+		width = 7505;
 	}
 	sprite.setOrigin(95, 180);
 }
 void PercyJackson::draw() {
-	if (!loading) {
+	if (!loading && !isMenu) {
+		if (getLocation().x > 300 && checkpoint == 0 && GameManager::instance().getLevelName() != "Medusa") {
+			checkpoint = 1;
+			background.setTexture(*TextureManager::getTexture("tlo2"));
+		}
+		if (getLocation().x >1400 && checkpoint == 1 && GameManager::instance().getLevelName() != "Medusa") {
+			checkpoint = 2;
+			background.setTexture(*TextureManager::getTexture("tlo3"));
+		}
+		if (getLocation().x> 2500 && checkpoint == 2 && GameManager::instance().getLevelName() != "Medusa") {
+			checkpoint = 3;
+			background.setTexture(*TextureManager::getTexture("tlo"));
+		}
 		GameManager::instance().getWindow().draw(background);
 		GameManager::instance().getWindow().draw(sprite);
 	}
-	else {
+	else if(!isMenu) {
 		setLocation(grim::Vector2(20000, 800));
 		setViewLocation(grim::Vector2(720, 540));
 		GameManager::instance().getWindow().draw(loadingScreen);
+	} else {
+		GameManager::instance().getWindow().draw(background);
 	}
 }
 void PercyJackson::setLocation(const grim::Vector2 &location) {
@@ -85,7 +102,7 @@ void PercyJackson::setSprite(const bool isLeft) {
 			}
 		}
 		else {
-			if(GameManager::instance().getLevelName() == "Medusa")
+			if(GameManager::instance().getLevelName() == "Medusa" || GameManager::instance().getEnemy()->getIsDestroyed())
 				sprite.setTexture(*TextureManager::getTexture("Sprite_Side0" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1)),true);
 			else
 				sprite.setTexture(*TextureManager::getTexture("Sprite_Side" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1)),true);

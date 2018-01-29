@@ -4,6 +4,8 @@
 #include "MenuManager.hpp"
 #include "Enemy.hpp"
 #include "PercyJackson.hpp"
+#include "GameMenu.hpp"
+
 class GameManager { // g³ówna klasa gry
 public:
 	enum Status {
@@ -22,7 +24,7 @@ public:
 	inline Level* getLevel() const { return currentLevel; }
 	inline PercyJackson* getPlayer() const { return player; }
 	inline Enemy* getEnemy() const { return enemy; }
-	void setLevel(std::string levelContent);
+	void setLevel(std::string levelContent, bool);
 	void runGame();
 	inline sf::Font getFont() const { return font; }
 	inline void setStatus(const enum Status gameStatus) { this->gameStatus = gameStatus; }

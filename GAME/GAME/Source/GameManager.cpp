@@ -1,8 +1,12 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/TextureManager.hpp"
 #include "../Include/Tile.hpp"
+#include "../Include/Introducer.hpp"
 
 #include <Windows.h>
+#include "../Include/GameMenu.hpp"
+#include <random>
+
 GameManager::GameManager() : gameStatus(Status::initializing),
 	currentLevel(new Level()),
 	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close){
@@ -11,9 +15,14 @@ GameManager::GameManager() : gameStatus(Status::initializing),
 }
 void GameManager::loadContent() {
 	TextureManager::loadTexture("Arrow", "../Release/Arrow.png");
-	TextureManager::loadTexture("Klocek", "../Release/Klocek.png");
+	TextureManager::loadTexture("Rock1", "../Release/Tile/theRock1.png");
+	TextureManager::loadTexture("Rock2", "../Release/Tile/theRock2.png");
+	TextureManager::loadTexture("Rock3", "../Release/Tile/theRock3.png");
+	TextureManager::loadTexture("RockyA", "../Release/RockyA.png");
+	TextureManager::loadTexture("RockyB", "../Release/RockyB.png");
 
 	TextureManager::loadTexture("loading", "../Release/loadingScreen.png");
+	TextureManager::loadTexture("shadow", "../Release/phil.png");
 
 	for (auto i = 1; i <= 12; i++) {
 		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia/Thalia" + std::to_string(i) + ".png");
@@ -27,6 +36,9 @@ void GameManager::loadContent() {
 
 	TextureManager::loadTexture("background", "../Release/background.jpg");
 	TextureManager::loadTexture("tlo", "../Release/tlo.png");
+	TextureManager::loadTexture("tlo2", "../Release/tlo2.png");
+	TextureManager::loadTexture("tlo3", "../Release/tlo3.png");
+	TextureManager::loadTexture("shop", "../Release/sklep.png");
 
 	for (auto i = 1; i <= 7; i++)
 		TextureManager::loadTexture("Sprite_Jump" + std::to_string(i), "../Release/Thalia/ThaliaJump" + std::to_string(i) + ".png");
@@ -53,42 +65,41 @@ GameManager::~GameManager() {
 	if (currentLevel)
 		delete currentLevel;
 }
-void GameManager::setLevel(const std::string levelContent)
+void GameManager::setLevel(const std::string levelContent, const bool wasMenu)
 {
 	this->levelContent = levelContent;
 	enemy = new Enemy();
-	if(player == nullptr) {
+	if (player == nullptr) {
 		player = new PercyJackson();
 	}
 	if (levelContent == "Introduce") {
 		currentLevel->removeCharacter(content);
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
+		std::vector<Tile*> tileCollector;
+		for (auto i = 0; i < 6; i++) {
+			tileCollector.push_back(new Tile(rand() % 3 + 1));
+			tileCollector[i]->setLocation(grim::Vector2(400 + i * 350, 880));
+			currentLevel->addCharacter(tileCollector[i]);
+		}
 	}
-	if(levelContent == "Medusa") {
-		std::cout << this->levelContent << std::endl;
-		currentLevel->cleanLevel();
+	if (levelContent == "Medusa") {
+		std::cout << currentLevel->cleanLevel();
 		player = new PercyJackson();
 		enemy = new Enemy();
-		std::vector<Tile*> tileCollector;
-		for (auto i = 0; i <= 6; i++) {
-			tileCollector.push_back(new Tile);
-		}
-		tileCollector[0]->setLocation(grim::Vector2(1800, 400));
-		tileCollector[1]->setLocation(grim::Vector2(1864, 400));
-		tileCollector[2]->setLocation(grim::Vector2(1928, 400));
-		tileCollector[5]->setLocation(grim::Vector2(1972, 400));
-		tileCollector[3]->setLocation(grim::Vector2(2036, 400));
-		tileCollector[6]->setLocation(grim::Vector2(1700, 600));
-		tileCollector[4]->setLocation(grim::Vector2(1600, 800));
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
-		for (auto i = 0; i <= 6; i++)
+		std::vector<Tile*> tileCollector;
+		for (auto i = 0; i < 6; i++) {
+			tileCollector.push_back(new Tile(rand() % 3 + 1));
+			tileCollector[i]->setLocation(grim::Vector2(400 + i * 150, 980));
 			currentLevel->addCharacter(tileCollector[i]);
+		}
 	}
 }
 
 void GameManager::runGame() {
+	std::srand(time(NULL));
 	gameStatus = Status::running;
 	content = new MenuManager();
 	currentLevel->addCharacter(content);

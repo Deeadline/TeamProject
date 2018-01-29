@@ -127,10 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Include\GameMenu.hpp" />
+    <ClCompile Include="Include\GameMenuController.hpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\EnemyController.cpp" />
     <ClCompile Include="Source\GameManager.cpp" />
+    <ClCompile Include="Source\GameMenu.cpp" />
+    <ClCompile Include="Source\GameMenuController.cpp" />
     <ClCompile Include="Source\Level.cpp" />
     <ClCompile Include="Source\MenuManager.cpp" />
     <ClCompile Include="Source\MenuManagerController.cpp" />

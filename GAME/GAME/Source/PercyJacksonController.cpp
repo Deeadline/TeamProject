@@ -15,13 +15,13 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 	}
 	else {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
-			(tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) < 3505){
+			(tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime) < tempOwner->getWidth()){
 			auto temp = tempOwner->getSprite().getGlobalBounds();
 			temp.left += 20;
 			temp.top -= 20;
 			if (!GameManager::instance().getLevel()->checkCollision(temp)) {
 				owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
-				if(tempOwner->getSprite().getPosition().x < 2850)
+				if(tempOwner->getSprite().getPosition().x < tempOwner->getWidth() - 300)
 					owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
 			}
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
@@ -37,7 +37,7 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			temp.top -= 20;
 			if (!GameManager::instance().getLevel()->checkCollision(temp)) {
 				owner->move(grim::Vector2(-moveSpeed*deltaTime, 0));
-				if (tempOwner->getSprite().getPosition().x < 2850)
+				if (tempOwner->getSprite().getPosition().x < tempOwner->getWidth() - 300)
 					owner->moveView(grim::Vector2(-moveSpeed*deltaTime, 0));
 			}
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
@@ -62,8 +62,8 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			velocity.y = -sqrtf(2.f*gravity*moveSpeed);
 			jump(deltaTime);
 		}
-		if((static_cast<int>(tempOwner->getSprite().getPosition().x) > 3000 
-			&& sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) && GameManager::instance().getLevelName() != "Medusa") {
+		if(((static_cast<int>(tempOwner->getSprite().getPosition().x) > 3000 
+			&& sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) && GameManager::instance().getLevelName() != "Medusa") || sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
 			loadingIncrement = 0;
 			tempOwner->setLoading(true);
 			loading(deltaTime);
@@ -78,7 +78,8 @@ void PercyJacksonController::update(const float &deltaTime, sf::Event &event) {
 			tempOwner->setAttackCycle(0);
 			attack(deltaTime);
 		}
-		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::X) && tempOwner->getCanShoot()) {
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::X) && tempOwner->getCanShoot() &&
+			(GameManager::instance().getLevelName() != "Introduce" || GameManager::instance().getEnemy()->getIsDestroyed())) {
 				tempOwner->setArrow(true);
 				tempOwner->setCanShoot(false);
 				count = 0;
@@ -101,7 +102,7 @@ void PercyJacksonController::loading(const float &deltaTime) {
 	loadingIncrement++;
 	if (loadingIncrement == 100) {
 		tempOwner->setLoading(false);
-		GameManager::instance().setLevel("Medusa");
+		GameManager::instance().setLevel("Medusa",false);
 	}
 }
 

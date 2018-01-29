@@ -51,11 +51,12 @@ std::size_t Level::cleanLevel() {
 	for (auto *character : charactersCollector) {
 		delete character;
 	}
+	charactersCollector.resize(0);
 	return charactersCount;
 }
 
 void Level::updateLevel(const float &deltaTime, sf::Event &event) {
-	for (auto i = 0u; i < charactersCollector.size();i++) {
+	for (auto i = 0u; i < charactersCollector.size(); i++) {
 		charactersCollector[i]->update(deltaTime, event);
 		if (charactersCollector[i]->getIsDestroyed()) {
 			delete charactersCollector[i];
