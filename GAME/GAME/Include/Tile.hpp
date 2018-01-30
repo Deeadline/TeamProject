@@ -4,10 +4,10 @@
 
 class Tile : public Player {
 public:
-	Tile(const int);
+	explicit Tile(const int);
 	virtual void draw() override;
 	virtual void setLocation(const grim::Vector2 &location) override;
-	inline sf::Sprite getSprite() const { return sprite; }
+	sf::Sprite getSprite() const { return sprite; }
 private:
 	sf::Sprite sprite;
 };

@@ -1,9 +1,7 @@
-#include "Include\GameManager.hpp"
+#include "Include/GameManager.hpp"
 
-int main()
-{
-	auto &game = GameManager::instance();
-	game.runGame();
+int main(int argc, char* argv[]) {
+	GameManager::instance().runGame();
 
 	return 0;
 }

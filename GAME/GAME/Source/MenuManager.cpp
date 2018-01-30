@@ -1,102 +1,103 @@
-#include "..\Include\MenuManager.hpp"
-#include "..\Include\TextureManager.hpp"
-#include "..\Include\GameManager.hpp"
+#include "../Include/MenuManager.hpp"
+#include "../Include/TextureManager.hpp"
+#include "../Include/GameManager.hpp"
+#include "../Include/MenuManagerController.hpp"
 
 MenuManager::MenuManager() :Player(new MenuManagerController) {
-	setLocation(grim::Vector2(0,0));
-	background.setTexture(*(TextureManager::getTexture("background")));
-	sprite[0].setTexture(*(TextureManager::getTexture("Sprite_Combat1")));
-	sprite[1].setTexture(*(TextureManager::getTexture("Sprite_Combat2")));
-	sprite[2].setTexture(*(TextureManager::getTexture("Sprite_Combat3")));
-	font=GameManager::instance().getFont();
+	MenuManager::setLocation(grim::Vector2(0, 0));
+	background.setTexture(*TextureManager::getTexture("menubg"));
+	championsChoice[0].setTexture(*TextureManager::getTexture("Thalia_BowWalking1"));
+	championsChoice[1].setTexture(*TextureManager::getTexture("SecretPlayer"));
+	championsChoice[2].setTexture(*TextureManager::getTexture("SecretPlayer"));
+	font = GameManager::instance().getFont();
 	setContent();
 }
 void MenuManager::draw() {
 	GameManager::instance().getWindow().draw(background);
 	for (auto i = 0u; i < 4; i++) {
-		GameManager::instance().getWindow().draw(menuContent[i]);
+		GameManager::instance().getWindow().draw(menuTexts[i]);
 	}
 	if (flag) {
-		if (menuStatus == menuState::newGame) {
+		if (menuStatus == MenuState::newGame) {
 			for (auto i = 0u; i < 5; i++) {
-				GameManager::instance().getWindow().draw(newGameContent[i]);
+				GameManager::instance().getWindow().draw(gameTexts[i]);
 			}
 			for (auto i = 0u; i < 3; i++) {
-				GameManager::instance().getWindow().draw(sprite[i]);
+				GameManager::instance().getWindow().draw(championsChoice[i]);
 			}
 		}
-		else if (menuStatus == menuState::load) {
+		else if (menuStatus == MenuState::load) {
 			for (auto i = 0u; i < 4; i++) {
-				GameManager::instance().getWindow().draw(loadContent[i]);
+				GameManager::instance().getWindow().draw(loadTexts[i]);
 			}
 		}
 	}
 }
 void MenuManager::setContent() {
-	sf::String temp[] = { "Nowa gra", "Wczytaj", L"WyjdŸ" };
-	sf::String temp1[] = { L"Wybierz postaæ", "Pierwsza", "Druga", "Trzecia", L"WyjdŸ" };
-	sf::String temp2[] = { "Wczytaj: ", "Zapis gry 1", "Zapis gry 2", L"WyjdŸ" };
+	sf::String temp[] = { "New Game", "Load game", L"Exit" };
+	sf::String temp1[] = { "Choose champion", "Thalia Grace", "Not unlocked", "Not unlocked", L"Exit" };
+	sf::String temp2[] = { "Load game: ", "First save", "Second save", L"Exit" };
 	for (auto i = 0u; i < 4; i++) {
 		if (i != 3)
 		{
-			menuContent[i].setFont(font);
-			menuContent[i].setCharacterSize(30);
-			menuContent[i].setString(temp[i]);
+			menuTexts[i].setFont(font);
+			menuTexts[i].setCharacterSize(30);
+			menuTexts[i].setString(temp[i]);
 		}
 
-		loadContent[i].setFont(font);
-		loadContent[i].setCharacterSize(30);
-		loadContent[i].setString(temp2[i]);
+		loadTexts[i].setFont(font);
+		loadTexts[i].setCharacterSize(30);
+		loadTexts[i].setString(temp2[i]);
 
-		menuContent[i].setPosition(50.f, 50.f + i*50.f);
-		loadContent[i].setPosition(200.f, 50.f + i*50.f);
+		menuTexts[i].setPosition(50.f, 50.f + i*50.f);
+		loadTexts[i].setPosition(200.f, 50.f + i*50.f);
 	}
 	for (auto i = 0u; i < 5; i++) {
-		newGameContent[i].setFont(font);
-		newGameContent[i].setCharacterSize(30);
-		newGameContent[i].setString(temp1[i]);
+		gameTexts[i].setFont(font);
+		gameTexts[i].setCharacterSize(30);
+		gameTexts[i].setString(temp1[i]);
 	}
 
 	for (auto i = 1u; i < 4; i++) {
-		newGameContent[i].setPosition(50.f + 300 * i, 680.f); // 1, 2 i 3
+		gameTexts[i].setPosition(50.f + 300 * i, 680.f); // 1, 2 i 3
 	}
-	newGameContent[0].setPosition(700.f, 50.f); // wybierz
-	newGameContent[4].setPosition(650.f, 850.f); // wyjdz
+	gameTexts[0].setPosition(700.f, 50.f); // wybierz
+	gameTexts[4].setPosition(650.f, 850.f); // wyjdz
 }
 void MenuManager::setLocation(const grim::Vector2 &location) {
 	Player::setLocation(location);
 	background.setPosition(location.x, location.y);
 	for (auto i = 0u; i < 3; i++) {
-		sprite[i].setPosition(location.x + 300*(i+1), location.y + 250);
+		championsChoice[i].setPosition(location.x + 300 * (i + 1), location.y + 250);
 	}
 }
 void MenuManager::updateContent(const sf::Vector2f mouse) {
 	if (!flag) {
 		for (auto i = 0u; i < 4; i++) {
-			if (menuContent[i].getGlobalBounds().contains(mouse)) {
-				menuContent[i].setFillColor(sf::Color::Red);
+			if (menuTexts[i].getGlobalBounds().contains(mouse)) {
+				menuTexts[i].setFillColor(sf::Color::Red);
 			}
 			else
-				menuContent[i].setFillColor(sf::Color::Black);
+				menuTexts[i].setFillColor(sf::Color::Black);
 		}
 	}
 	else {
 		if (getStatus() == newGame) {
 			for (auto i = 1u; i < 5; i++) {
-				if (newGameContent[i].getGlobalBounds().contains(mouse)) {
-					newGameContent[i].setFillColor(sf::Color::Red);
+				if (gameTexts[i].getGlobalBounds().contains(mouse)) {
+					gameTexts[i].setFillColor(sf::Color::Red);
 				}
 				else
-					newGameContent[i].setFillColor(sf::Color::Black);
+					gameTexts[i].setFillColor(sf::Color::Black);
 			}
 		}
 		else if (getStatus() == load) {
 			for (auto i = 1u; i < 4; i++) {
-				if (loadContent[i].getGlobalBounds().contains(mouse)) {
-					loadContent[i].setFillColor(sf::Color::Red);
+				if (loadTexts[i].getGlobalBounds().contains(mouse)) {
+					loadTexts[i].setFillColor(sf::Color::Red);
 				}
 				else
-					loadContent[i].setFillColor(sf::Color::Black);
+					loadTexts[i].setFillColor(sf::Color::Black);
 			}
 		}
 	}

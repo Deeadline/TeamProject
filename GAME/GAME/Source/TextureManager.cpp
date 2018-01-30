@@ -1,15 +1,15 @@
-#include "..\Include\TextureManager.hpp"
+#include "../Include/TextureManager.hpp"
 
 TextureManager::TextureManager() {
 
 }
 TextureManager::~TextureManager() {
 	for (auto textureData : texturesCollector) {
-		delete (textureData.second);
+		delete textureData.second;
 	}
 }
 sf::Texture* TextureManager::loadTexture(const std::string &textureName, const std::string &texturePath) {
-	sf::Texture *result = TextureManager::getTexture(textureName);
+	auto result = getTexture(textureName);
 	if (result) {
 		result->loadFromFile(texturePath);
 	}
@@ -24,11 +24,11 @@ sf::Texture* TextureManager::loadTexture(const std::string &textureName, const s
 bool TextureManager::unLoad(const std::string &textureName) {
 	auto &tempInstance = instance();
 	auto textureIt = tempInstance.texturesCollector.find(textureName);
-	if (textureIt == tempInstance.texturesCollector.end())	{
+	if (textureIt == tempInstance.texturesCollector.end()) {
 		return false;
 	}
 	else {
-		delete (textureIt->second);
+		delete textureIt->second;
 		tempInstance.texturesCollector.erase(textureIt);
 		return true;
 	}
@@ -36,16 +36,16 @@ bool TextureManager::unLoad(const std::string &textureName) {
 
 std::size_t TextureManager::cleanTexture() {
 	auto &tempInstance = instance();
-	std::size_t textureCount = tempInstance.texturesCollector.size();
+	const auto textureCount = tempInstance.texturesCollector.size();
 	for (auto textureData : tempInstance.texturesCollector) {
-		delete (textureData.second);
+		delete textureData.second;
 	}
 	return textureCount;
 }
 
 sf::Texture * TextureManager::getTexture(const std::string &textureName) {
 	auto &tempInstance = instance();
-	auto textureIt = tempInstance.texturesCollector.find(textureName);
+	const auto textureIt = tempInstance.texturesCollector.find(textureName);
 	if (textureIt == tempInstance.texturesCollector.end()) {
 		return nullptr;
 	}

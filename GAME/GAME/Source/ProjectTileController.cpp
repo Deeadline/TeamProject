@@ -2,11 +2,12 @@
 #include "../Include/ProjectTileController.hpp"
 #include "../Include/ProjectTile.hpp"
 #include "../Include/GameManager.hpp"
+
 ProjectTileController::ProjectTileController() : moveSpeed(600) {
 }
 
-void ProjectTileController::update(const float& deltaTime, sf::Event& event) {
-	if (!GameManager::instance().getPlayer()->getLoading()) {
+void ProjectTileController::update(const float& deltaTime) {
+	if (!GameManager::instance().getPlayer()->isLoading()) {
 		auto* tempTile = dynamic_cast<ProjectTile*>(owner);
 		if (tempTile->getDirection())
 			tempTile->move(grim::Vector2(-deltaTime*moveSpeed, 0));
@@ -19,7 +20,6 @@ void ProjectTileController::update(const float& deltaTime, sf::Event& event) {
 					tempTile->setDestroyed(true);
 					if (GameManager::instance().getEnemy()->getHealthPoint() <= 0 && GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
 						GameManager::instance().getEnemy()->setDestroyed(true);
-
 					}
 				}
 			}

@@ -1,61 +1,61 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/TextureManager.hpp"
 #include "../Include/Tile.hpp"
-#include "../Include/Introducer.hpp"
+#include "../Include/GameMenu.hpp"
 
 #include <Windows.h>
-#include "../Include/GameMenu.hpp"
 #include <random>
 
 GameManager::GameManager() : gameStatus(Status::initializing),
 	currentLevel(new Level()),
-	currentWindow(sf::VideoMode(1440, 1080, 32), "Nowa gra", sf::Style::Close){
+	currentWindow(sf::VideoMode(1440, 1080, 32), "Percy Jackson Game", sf::Style::Default){
 	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedzie tez wyliczana.
 	loadContent();
 }
 void GameManager::loadContent() {
-	TextureManager::loadTexture("Arrow", "../Release/Arrow.png");
-	TextureManager::loadTexture("Rock1", "../Release/Tile/theRock1.png");
-	TextureManager::loadTexture("Rock2", "../Release/Tile/theRock2.png");
-	TextureManager::loadTexture("Rock3", "../Release/Tile/theRock3.png");
-	TextureManager::loadTexture("RockyA", "../Release/RockyA.png");
-	TextureManager::loadTexture("RockyB", "../Release/RockyB.png");
+	//Load colliders textures
+	for (auto i = 1; i< 4; i++)
+		TextureManager::loadTexture("Rock" + std::to_string(i), "../Release/Tile/theRock" + std::to_string(i) + ".png");
+	TextureManager::loadTexture("RockThrowing", "../Release/Tile/ThrowingRock.png");
+	TextureManager::loadTexture("Arrow", "../Release/Tile/Arrow.png");
 
-	TextureManager::loadTexture("loading", "../Release/loadingScreen.png");
-	TextureManager::loadTexture("shadow", "../Release/phil.png");
+	//Load maps textures
+	TextureManager::loadTexture("menubg", "../Release/Screen/background.jpg");
+	TextureManager::loadTexture("gamebg1", "../Release/Screen/tlo.png");
+	TextureManager::loadTexture("gamebg2", "../Release/Screen/tlo2.png");
+	TextureManager::loadTexture("gamebg3", "../Release/Screen/tlo3.png");
+	TextureManager::loadTexture("gamebg4", "../Release/Screen/sklep.png");
+	TextureManager::loadTexture("loading", "../Release/Screen/loadingScreen.png");
 
-	for (auto i = 1; i <= 12; i++) {
-		TextureManager::loadTexture("Sprite_Side" + std::to_string(i), "../Release/Thalia/Thalia" + std::to_string(i) + ".png");
-		TextureManager::loadTexture("Sprite_Side0" + std::to_string(i), "../Release/ThaliaWalkingCycleBowLast/ThaliaWalkBow" + std::to_string(i) + ".png");
+	//Load player and enemy textures
+	TextureManager::loadTexture("Phil", "../Release/Characters/phil.png");
+
+	for (auto i = 1; i < 13; i++) {
+		TextureManager::loadTexture("Thalia_Walking" + std::to_string(i), "../Release/Thalia/NoBow/Thalia" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Thalia_BowWalking" + std::to_string(i), "../Release/Thalia/Bow/ThaliaWalk0" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Rocky_Walking" + std::to_string(i), "../Release/RockyWalk/RockyWalk" + std::to_string(i) + ".png");
 	}
-	TextureManager::loadTexture("Sprite_Attack1", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack1NoBow.png");
-	TextureManager::loadTexture("Sprite_Attack2", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack2NoBow.png");
-	TextureManager::loadTexture("Sprite_Attack01", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack1.png");
-	TextureManager::loadTexture("Sprite_Attack02", "../Release/ThaliaKnifeAttack/ThaliaKnifeAttack22.png");
 
+	for (auto i = 1; i<7; i++) {
+		TextureManager::loadTexture("Thalia_Jump" + std::to_string(i), "../Release/Thalia/NoBow/ThaliaJump" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Thalia_BowJump" + std::to_string(i), "../Release/Thalia/Bow/ThaliaJump0" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Rocky_Attack" + std::to_string(i), "../Release/RockyThrowRock/RockyThrow0" + std::to_string(i) + ".png");
+	}
 
-	TextureManager::loadTexture("background", "../Release/background.jpg");
-	TextureManager::loadTexture("tlo", "../Release/tlo.png");
-	TextureManager::loadTexture("tlo2", "../Release/tlo2.png");
-	TextureManager::loadTexture("tlo3", "../Release/tlo3.png");
-	TextureManager::loadTexture("shop", "../Release/sklep.png");
+	for (auto i = 0; i<2; i++) {
+		TextureManager::loadTexture("Thalia_AttackKnifeNoBow" + std::to_string(i + 1), "../Release/Thalia/NoBow/ThaliaKnife0" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Thalia_AttackKnifeBow" + std::to_string(i + 1), "../Release/Thalia/Bow/ThaliaKnife" + std::to_string(i) + ".png");
+	}
 
-	for (auto i = 1; i <= 7; i++)
-		TextureManager::loadTexture("Sprite_Jump" + std::to_string(i), "../Release/Thalia/ThaliaJump" + std::to_string(i) + ".png");
-	for(auto i=1; i<=6;i++)
-		TextureManager::loadTexture("Sprite_Jump0" + std::to_string(i), "../Release/ThaliaJumpBow/ThaliaJumpBow" + std::to_string(i) + ".png");
-
-	TextureManager::loadTexture("Sprite_Combat1", "../Release/ThaliaJumpBow/ThaliaJumpBow1.png");
-	TextureManager::loadTexture("Sprite_Combat2", "../Release/Thalia/ThaliaJump7.png");
-	TextureManager::loadTexture("Sprite_Combat3", "../Release/Thalia/ThaliaJump7.png");
+	TextureManager::loadTexture("SecretPlayer", "../Release/Thalia/SecondPlayer.png");
 
 	currentWindow.setFramerateLimit(40);
-	viewMenu.setSize(currentWindow.getSize().x,currentWindow.getSize().y);
+	viewMenu.setSize(currentWindow.getSize().x, currentWindow.getSize().y);
 	viewGame.setSize(currentWindow.getSize().x, currentWindow.getSize().y);
 	viewMenu.setCenter(currentWindow.getSize().x / 2, currentWindow.getSize().y / 2);
 	currentWindow.setView(viewMenu);
 
-	if (!font.loadFromFile("../Release//Font/tillana.ttf")) {
+	if (!font.loadFromFile("../Release/Font/tillana.ttf")) {
 		MessageBox(NULL, "Font not found!", "ERROR", NULL);
 	}
 }
@@ -70,7 +70,7 @@ void GameManager::setLevel(const std::string levelContent, const bool wasMenu)
 	this->levelContent = levelContent;
 	enemy = new Enemy();
 	if (player == nullptr) {
-		player = new PercyJackson();
+		player = new Thalia();
 	}
 	if (levelContent == "Introduce") {
 		currentLevel->removeCharacter(content);
@@ -85,7 +85,7 @@ void GameManager::setLevel(const std::string levelContent, const bool wasMenu)
 	}
 	if (levelContent == "Medusa") {
 		std::cout << currentLevel->cleanLevel();
-		player = new PercyJackson();
+		player = new Thalia();
 		enemy = new Enemy();
 		currentLevel->addCharacter(player);
 		currentLevel->addCharacter(enemy);
@@ -99,7 +99,7 @@ void GameManager::setLevel(const std::string levelContent, const bool wasMenu)
 }
 
 void GameManager::runGame() {
-	std::srand(time(NULL));
+	srand(time(NULL));
 	gameStatus = Status::running;
 	content = new MenuManager();
 	currentLevel->addCharacter(content);
@@ -115,7 +115,7 @@ void GameManager::runGame() {
 			}
 		}
 		currentWindow.clear();
-		currentLevel->updateLevel(deltaTime, event);
+		currentLevel->updateLevel(deltaTime);
 		currentLevel->draw();
 		currentWindow.display();
 

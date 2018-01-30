@@ -6,11 +6,13 @@ public:
 	ProjectTile(const bool direction, const bool tOwner);
 	virtual void draw() override;
 	virtual void setLocation(const grim::Vector2 &location) override;
-	inline bool getIsHit() const{ return hit; }
-	inline void setIsHit(const bool hit) { this->hit = hit; }
-	inline bool getDirection() { return direction; }
-	inline sf::Sprite getSprite() const { return sprite; }
-	inline bool getOwner() const { return tOwner; }
+
+	bool isHit() const { return hit; }
+	bool getDirection() { return direction; }
+	bool getOwner() const { return tOwner; }
+	sf::Sprite getSprite() const { return sprite; }
+
+	void setHit(const bool hit) { this->hit = hit; }
 private:
 	sf::Sprite sprite;
 	bool direction;

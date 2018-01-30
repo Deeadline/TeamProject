@@ -3,37 +3,41 @@
 #include "Level.hpp"
 #include "MenuManager.hpp"
 #include "Enemy.hpp"
-#include "PercyJackson.hpp"
+#include "Thalia.hpp"
 #include "GameMenu.hpp"
 
 class GameManager { // g³ówna klasa gry
 public:
+	~GameManager();
+
+	static GameManager& instance() {
+		static GameManager instance;
+		return instance;
+	}
+
 	enum Status {
 		initializing = 0,
 		running = 1,
 		paused = 2,
 		cleaningUp = 3
 	};
-	~GameManager();
-	inline static GameManager& instance() {
-		static GameManager instance;
-		return instance;
-	}
-	inline sf::RenderWindow& getWindow() { return currentWindow; }
-	inline Status getStatus() const { return gameStatus; }
-	inline Level* getLevel() const { return currentLevel; }
-	inline PercyJackson* getPlayer() const { return player; }
-	inline Enemy* getEnemy() const { return enemy; }
-	void setLevel(std::string levelContent, bool);
+
+	sf::RenderWindow& getWindow() { return currentWindow; }
+	sf::Font getFont() const { return font; }
+	sf::View& getViewGame() { return viewGame; }
+	sf::View& getViewMenu() { return viewMenu; }
+	std::string getLevelName() { return levelContent; }
+	Status getStatus() const { return gameStatus; }
+	Level* getLevel() const { return currentLevel; }
+	Thalia* getPlayer() const { return player; }
+	Enemy* getEnemy() const { return enemy; }
+
 	void runGame();
-	inline sf::Font getFont() const { return font; }
-	inline void setStatus(const enum Status gameStatus) { this->gameStatus = gameStatus; }
-	inline std::string getLevelName() { return levelContent; }
-	inline sf::View& getViewGame() { return viewGame; }
-	inline sf::View& getViewMenu() { return viewMenu; }
+	void setLevel(std::string levelContent, bool);
+	void setStatus(const enum Status gameStatus) { this->gameStatus = gameStatus; }
 protected:
 	MenuManager* content;
-	PercyJackson* player;
+	Thalia* player;
 	Enemy* enemy;
 	Status gameStatus;
 	Level* currentLevel;
@@ -41,6 +45,7 @@ private:
 	GameManager();
 	GameManager(const GameManager&) = delete;
 	void operator=(const GameManager&) = delete;
+
 	void loadContent();
 	sf::RenderWindow currentWindow;
 	sf::View viewMenu;

@@ -6,27 +6,29 @@ public:
 	Enemy();
 	virtual void draw() override;
 	virtual void setLocation(const grim::Vector2 &location) override;
-	inline void incrementMoveFlag() { moveFlag++; }
-	inline void incrementCycle() { cycle++; }
-	inline void setMoveFlag() { moveFlag = 0; }
-	inline int getMoveFlag() const { return moveFlag; }
-	inline void setCanMove(const bool type) { canMove = type; }
-	inline bool getCanMove() const { return canMove; }
-	inline void setCycle(const int cycle) { this->cycle = cycle; }
-	inline int getCycle() const { return cycle; }
+
+	sf::Sprite getSprite() const { return this->sprite; }
+	int getMoveFlag() const { return this->moveFlag; }
+	int getCycle() const { return this->cycle; }
+	bool getDirection() const { return this->direction; }
+	bool canShoot() const { return this->shoot; }
+	bool canMove() const { return this->movable; }
+
+	void setCanMove(const bool move) { this->movable = move; }
+	void setCycle(const int cycle) { this->cycle = cycle; }
 	void setSprite(int);
-	inline void setCanShoot(const bool canShoot) { this->canShoot = canShoot; }
+	void setCanShoot(const bool shoot) { this->shoot = shoot; }
 	void setDirection(const bool direction) { this->direction = direction; }
-	bool getDirection() const { return direction; }
-	inline bool getCanShoot() const { return canShoot; }
-	inline sf::Sprite getSprite() const { return sprite; }
+
+	void incrementMoveFlag() { this->moveFlag++; }
+	void incrementCycle() { this->cycle++; }
+	void setMoveFlag() { this->moveFlag = 0; }
 private:
-	int moveFlag;
-	int cycle;
-	bool canMove;
-	bool direction;
-	bool canShoot;
 	sf::Sprite sprite;
 	sf::Text healttText;
-	void setString();
+	int moveFlag;
+	int cycle;
+	bool movable;
+	bool direction;
+	bool shoot;
 };

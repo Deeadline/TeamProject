@@ -4,6 +4,6 @@
 TileController::TileController() {
 }
 
-void TileController::update(const float& deltaTime, sf::Event& event) {
+void TileController::update(const float& deltaTime) {
 
 }

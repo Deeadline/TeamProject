@@ -42,12 +42,6 @@
     <ClCompile Include="Source\TextureManager.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PercyJackson.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PercyJacksonController.cpp">
-      <Filter>Source Files\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MenuManager.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
@@ -84,6 +78,12 @@
     <ClCompile Include="Source\GameMenuController.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ThaliaController.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Thalia.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\CharacterMechanic.hpp">
@@ -96,12 +96,6 @@
       <Filter>Header Files\Include</Filter>
     </ClInclude>
     <ClInclude Include="Include\Level.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\PercyJackson.hpp">
-      <Filter>Header Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\PercyJacksonController.hpp">
       <Filter>Header Files\Include</Filter>
     </ClInclude>
     <ClInclude Include="Include\Player.hpp">
@@ -144,6 +138,12 @@
       <Filter>Header Files\Include</Filter>
     </ClInclude>
     <ClInclude Include="Include\TileController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ThaliaController.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Thalia.hpp">
       <Filter>Header Files\Include</Filter>
     </ClInclude>
   </ItemGroup>

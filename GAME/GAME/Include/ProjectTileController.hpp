@@ -5,7 +5,7 @@
 class ProjectTileController : public PlayerController {
 public:
 	ProjectTileController();
-	virtual void update(const float &deltaTime, sf::Event &event) override;
+	virtual void update(const float &deltaTime) override;
 private:
 	float moveSpeed;
 };

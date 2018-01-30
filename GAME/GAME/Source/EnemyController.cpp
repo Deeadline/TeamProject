@@ -2,20 +2,21 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/TextureManager.hpp"
 #include "../Include/ProjectTile.hpp"
+#include "../Include/Enemy.hpp"
 
 EnemyController::EnemyController() :
-	moveSpeed(400) {
+	moveSpeed(400), count(0) {
 
 }
 
-void EnemyController::update(const float &deltaTime, sf::Event &event) {
+void EnemyController::update(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<Enemy*>(owner);
-	if (GameManager::instance().getPlayer()->getIsMenu()) {
+	if (GameManager::instance().getPlayer()->isMenu()) {
 		tempOwner->setCanMove(false);
 	}
-	else if (tempOwner->getCanMove()) {
+	else if (tempOwner->canMove()) {
 		if (tempOwner->getLocation().Distance(GameManager::instance().getPlayer()->getLocation()) > 800) {
-			if(tempOwner->getCycle() < 100) {
+			if (tempOwner->getCycle() < 100) {
 				tempOwner->move(grim::Vector2(deltaTime*moveSpeed / 2, 0));
 				tempOwner->incrementMoveFlag();
 				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
@@ -35,12 +36,12 @@ void EnemyController::update(const float &deltaTime, sf::Event &event) {
 				tempOwner->incrementCycle();
 		}
 		else {
-			if(GameManager::instance().getPlayer()->getLocation().x > tempOwner->getLocation().x)
+			if (GameManager::instance().getPlayer()->getLocation().x > tempOwner->getLocation().x)
 				tempOwner->setSprite(1);
 			else
 				tempOwner->setSprite(-1);
 			shoot(deltaTime);
-			if (tempOwner->getCanShoot()) {
+			if (tempOwner->canShoot()) {
 				tempOwner->setCanShoot(false);
 				count = 0;
 			}
@@ -50,7 +51,7 @@ void EnemyController::update(const float &deltaTime, sf::Event &event) {
 void EnemyController::shoot(const float& deltaTime) {
 	auto* tempOwner = dynamic_cast<Enemy*>(owner);
 	if (count == 0) {
-		auto* arrow = new ProjectTile(tempOwner->getDirection(),false);
+		auto* arrow = new ProjectTile(tempOwner->getDirection(), false);
 		GameManager::instance().getLevel()->addCharacter(arrow);
 	}
 	count++;

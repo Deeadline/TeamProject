@@ -1,22 +1,22 @@
-#include "..\Include\Player.hpp"
+#include "../Include/Player.hpp"
 
 Player::Player(PlayerController *controller) :controller(nullptr), healthPoint(100), damage(10) {
 	if (controller && controller->isPossess(this)) {
 		this->controller = controller;
 	}
-	
+
 }
 
 Player::~Player() {
 	if (this->controller) {
-		delete (this->controller);
+		delete this->controller;
 	}
 }
 
 void Player::resetController(PlayerController *controller) {
 	if (controller != this->controller) {
 		if (this->controller) {
-			delete (this->controller);
+			delete this->controller;
 		}
 		if (controller && controller->isPossess(this)) {
 			this->controller = controller;
@@ -27,9 +27,9 @@ void Player::resetController(PlayerController *controller) {
 	}
 }
 
-void Player::update(const float &deltaTime, sf::Event &event) {
-	
+void Player::update(const float &deltaTime) {
+
 	if (this->controller) {
-		this->controller->update(deltaTime, event);
+		this->controller->update(deltaTime);
 	}
 }
