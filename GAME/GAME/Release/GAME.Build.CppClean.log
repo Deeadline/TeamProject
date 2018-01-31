@@ -1,6 +1,4 @@
 d:\teamproject\game\game\release\vc141.pdb
-d:\teamproject\game\game\release\gamemenucontroller.obj
-d:\teamproject\game\game\release\gamemenu.obj
 d:\teamproject\game\game\release\tilecontroller.obj
 d:\teamproject\game\game\release\tile.obj
 d:\teamproject\game\game\release\texturemanager.obj
@@ -13,14 +11,14 @@ d:\teamproject\game\game\release\thalia.obj
 d:\teamproject\game\game\release\menumanagercontroller.obj
 d:\teamproject\game\game\release\menumanager.obj
 d:\teamproject\game\game\release\level.obj
+d:\teamproject\game\game\release\gamemenucontroller.obj
+d:\teamproject\game\game\release\gamemenu.obj
 d:\teamproject\game\game\release\gamemanager.obj
 d:\teamproject\game\game\release\enemycontroller.obj
 d:\teamproject\game\game\release\enemy.obj
 d:\teamproject\game\game\release\main.obj
 d:\teamproject\game\release\game.ipdb
 d:\teamproject\game\release\game.iobj
-d:\teamproject\game\release\game.lib
-d:\teamproject\game\release\game.exp
 d:\teamproject\game\release\game.pdb
 d:\teamproject\game\game\release\game.tlog\cl.command.1.tlog
 d:\teamproject\game\game\release\game.tlog\cl.read.1.tlog

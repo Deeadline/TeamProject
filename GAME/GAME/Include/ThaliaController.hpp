@@ -10,8 +10,7 @@ private:
 	void jump(const float &deltaTime);
 	void fall(const float &deltaTime);
 	void shoot(const float &deltaTime);
-	void moveLeft(const float &delta);
-	void moveRight(const float &delta);
+
 	grim::Vector2f velocity;
 	int loadingIncrement;
 	float moveSpeed;

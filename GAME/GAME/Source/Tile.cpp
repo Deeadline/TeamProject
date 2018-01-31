@@ -10,7 +10,7 @@ Tile::Tile(const int x) : Player(new TileController) {
 }
 
 void Tile::draw() {
-	if (!GameManager::instance().getPlayer()->isLoading() && !GameManager::instance().getPlayer()->isMenu())
+	if (!GameManager::instance().getPlayer()->isMenu() && !GameManager::instance().getPlayer()->isLoading())
 		GameManager::instance().getWindow().draw(sprite);
 }
 

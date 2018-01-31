@@ -1,15 +1,14 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/TextureManager.hpp"
 #include "../Include/Tile.hpp"
-#include "../Include/GameMenu.hpp"
 
-#include <Windows.h>
+#include <windows.h>
 #include <random>
 
 GameManager::GameManager() : gameStatus(Status::initializing),
 	currentLevel(new Level()),
 	currentWindow(sf::VideoMode(1440, 1080, 32), "Percy Jackson Game", sf::Style::Default){
-	//tutaj bedzie wczytywanie z configu i tworzenie okienka o danym rozmiarze, skala bedzie tez wyliczana.
+
 	loadContent();
 }
 void GameManager::loadContent() {
@@ -24,7 +23,9 @@ void GameManager::loadContent() {
 	TextureManager::loadTexture("gamebg1", "../Release/Screen/tlo.png");
 	TextureManager::loadTexture("gamebg2", "../Release/Screen/tlo2.png");
 	TextureManager::loadTexture("gamebg3", "../Release/Screen/tlo3.png");
-	TextureManager::loadTexture("gamebg4", "../Release/Screen/sklep.png");
+	TextureManager::loadTexture("gamebg4", "../Release/Screen/tlo4.png");
+	TextureManager::loadTexture("gamebg5", "../Release/Screen/tlo5.png");
+	TextureManager::loadTexture("gamebg6", "../Release/Screen/sklep.png");
 	TextureManager::loadTexture("loading", "../Release/Screen/loadingScreen.png");
 
 	//Load player and enemy textures
@@ -45,6 +46,10 @@ void GameManager::loadContent() {
 	for (auto i = 0; i<2; i++) {
 		TextureManager::loadTexture("Thalia_AttackKnifeNoBow" + std::to_string(i + 1), "../Release/Thalia/NoBow/ThaliaKnife0" + std::to_string(i) + ".png");
 		TextureManager::loadTexture("Thalia_AttackKnifeBow" + std::to_string(i + 1), "../Release/Thalia/Bow/ThaliaKnife" + std::to_string(i) + ".png");
+	}
+
+	for(auto i=1; i<10;i++) {
+		TextureManager::loadTexture("Thalia_AttackBow" + std::to_string(i), "../Release/Thalia/Bow/ThaliaShooting" + std::to_string(i) + "-01.png");
 	}
 
 	TextureManager::loadTexture("SecretPlayer", "../Release/Thalia/SecondPlayer.png");
@@ -68,32 +73,32 @@ GameManager::~GameManager() {
 void GameManager::setLevel(const std::string levelContent, const bool wasMenu)
 {
 	this->levelContent = levelContent;
-	enemy = new Enemy();
 	if (player == nullptr) {
 		player = new Thalia();
 	}
 	if (levelContent == "Introduce") {
 		currentLevel->removeCharacter(content);
 		currentLevel->addCharacter(player);
-		currentLevel->addCharacter(enemy);
+		enemy[0] = new Enemy(1);
+		enemy[1] = new Enemy(1);
+		enemy[0]->setLocation(grim::Vector2(2300, 800));
+		currentLevel->addCharacter(enemy[0]);
 		std::vector<Tile*> tileCollector;
-		for (auto i = 0; i < 6; i++) {
+		for (auto i = 0; i < 3; i++) {
 			tileCollector.push_back(new Tile(rand() % 3 + 1));
-			tileCollector[i]->setLocation(grim::Vector2(400 + i * 350, 880));
+			tileCollector[i]->setLocation(grim::Vector2(750 + i * 350, 880));
 			currentLevel->addCharacter(tileCollector[i]);
 		}
 	}
 	if (levelContent == "Medusa") {
-		std::cout << currentLevel->cleanLevel();
+		currentLevel->cleanLevel();
 		player = new Thalia();
-		enemy = new Enemy();
 		currentLevel->addCharacter(player);
-		currentLevel->addCharacter(enemy);
-		std::vector<Tile*> tileCollector;
-		for (auto i = 0; i < 6; i++) {
-			tileCollector.push_back(new Tile(rand() % 3 + 1));
-			tileCollector[i]->setLocation(grim::Vector2(400 + i * 150, 980));
-			currentLevel->addCharacter(tileCollector[i]);
+		std::vector<Enemy*> enemies;
+		for(auto i =0; i<4; i++) {
+			enemies.push_back(new Enemy(2));
+			enemies[i]->setLocation(grim::Vector2(1000 + 1000 * i, 800));
+			currentLevel->addCharacter(enemies[i]);
 		}
 	}
 }

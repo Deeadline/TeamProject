@@ -12,6 +12,7 @@ public:
 	bool checkCollision(sf::Rect<float>);
 	std::vector<CharacterMechanics*> getCharacters() { return charactersCollector; }
 	std::vector<CharacterMechanics*> getAllColliders();
+	std::vector<CharacterMechanics*> getEnemies();
 	size_t cleanLevel();
 	size_t countCharacter() const { return charactersCollector.size(); }
 

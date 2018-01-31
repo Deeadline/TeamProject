@@ -8,5 +8,5 @@ public:
 private:
 	void shoot(const float &deltaTime);
 	float moveSpeed;
-	unsigned count;
+	unsigned attackCycle;
 };

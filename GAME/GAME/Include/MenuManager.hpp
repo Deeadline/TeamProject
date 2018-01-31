@@ -18,11 +18,12 @@ public:
 	sf::Text gameText(const int number) { return gameTexts[number]; }
 	sf::FloatRect getSpriteBounds(const int numberOfSprite) const { return championsChoice[numberOfSprite].getGlobalBounds(); }
 	MenuState getStatus() const { return menuStatus; }
-	void setStatus(const enum MenuState menuStatus) { this->menuStatus = menuStatus; }
 	bool getFlag() const { return this->flag; }
 
-	void updateContent(const sf::Vector2f);
+	void setStatus(const enum MenuState menuStatus) { this->menuStatus = menuStatus; }
 	void setFlag(const bool flag) { this->flag = flag; }
+
+	void updateContent(const sf::Vector2f);
 private:
 	sf::Font font;
 	sf::Sprite background;
@@ -30,8 +31,8 @@ private:
 	sf::Text menuTexts[4];
 	sf::Text loadTexts[4];
 	sf::Text gameTexts[5];
-
 	MenuState menuStatus;
 	bool flag;
+
 	void setContent();
 };

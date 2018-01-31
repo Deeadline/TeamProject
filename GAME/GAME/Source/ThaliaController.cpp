@@ -2,54 +2,67 @@
 #include "../Include/GameManager.hpp"
 #include "../Include/ProjectTile.hpp"
 #include "../Include/ThaliaController.hpp"
+#include "../Include/GameMenu.hpp"
 
-ThaliaController::ThaliaController() : loadingIncrement(0), moveSpeed(300.f), gravity(981.f),
-velocity(0, 0), jumpCycle(0), count(0) {
+ThaliaController::ThaliaController() : velocity(0, 0), loadingIncrement(0), moveSpeed(300.f),
+                                       gravity(981.f), jumpCycle(0), count(0) {
 }
 
 void ThaliaController::update(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<Thalia*>(owner);
 	if (tempOwner->isMenu()) {
+//		{
+//			auto* gameMenu = new GameMenu();
+//			GameManager::instance().getLevel()->addCharacter(gameMenu);
+//			if (gameMenu->isDestroyed()) {
+//				GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
+//				tempOwner->setMove(true);
+//				tempOwner->setMenu(false);
+//			}
+//		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
 			tempOwner->setMove(true);
 			tempOwner->setMenu(false);
 		}
+		
 	}
 	else {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
-			tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime < tempOwner->getWidth()) {
-			auto temp = tempOwner->getSprite().getGlobalBounds();
-			temp.left += 20;
-			temp.top -= 20;
-			if (!GameManager::instance().getLevel()->checkCollision(temp)) {
-				owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
-				if (tempOwner->getSprite().getPosition().x < tempOwner->getWidth() - 300)
-					owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
+		if (tempOwner->canShoot()) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
+				tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime < tempOwner->getWidth()) {
+				auto temp = tempOwner->getSprite().getGlobalBounds();
+				temp.left += 20;
+				temp.top -= 20;
+				if (!GameManager::instance().getLevel()->checkCollision(temp)) {
+					owner->move(grim::Vector2(moveSpeed * deltaTime, 0));
+					if (tempOwner->getSprite().getPosition().x < tempOwner->getWidth() - 300)
+						owner->moveView(grim::Vector2(moveSpeed * deltaTime, 0));
+				}
+				GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
+				tempOwner->incrementMoveFlag();
+				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
+					tempOwner->setMoveFlag();
+				tempOwner->setSprite(false);
 			}
-			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
-			tempOwner->incrementMoveFlag();
-			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
-				tempOwner->setMoveFlag();
-			tempOwner->setSprite(false);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) &&
-			tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime>95) {
-			auto temp = tempOwner->getSprite().getGlobalBounds();
-			temp.left -= 20;
-			temp.top -= 20;
-			if (!GameManager::instance().getLevel()->checkCollision(temp)) {
-				owner->move(grim::Vector2(-moveSpeed*deltaTime, 0));
-				if (tempOwner->getSprite().getPosition().x < tempOwner->getWidth() - 300)
-					owner->moveView(grim::Vector2(-moveSpeed*deltaTime, 0));
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) &&
+				tempOwner->getSprite().getPosition().x + moveSpeed*deltaTime > 95) {
+				auto temp = tempOwner->getSprite().getGlobalBounds();
+				temp.left -= 20;
+				temp.top -= 20;
+				if (!GameManager::instance().getLevel()->checkCollision(temp)) {
+					owner->move(grim::Vector2(-moveSpeed*deltaTime, 0));
+					if (tempOwner->getSprite().getPosition().x < tempOwner->getWidth() - 300)
+						owner->moveView(grim::Vector2(-moveSpeed*deltaTime, 0));
+				}
+				GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
+				tempOwner->incrementMoveFlag();
+				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
+					tempOwner->setMoveFlag();
+				tempOwner->setSprite(true);
 			}
-			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
-			tempOwner->incrementMoveFlag();
-			if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
-				tempOwner->setMoveFlag();
-			tempOwner->setSprite(true);
 		}
-		if (!tempOwner->canJump()) { //jeżeli postać jest w trakcie skoku, wykona sie funkcja jump
+		if (!tempOwner->canJump()) {
 			jump(deltaTime);
 			tempOwner->setSprite(tempOwner->direction());
 		}
@@ -82,10 +95,9 @@ void ThaliaController::update(const float &deltaTime) {
 			attack(deltaTime);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && tempOwner->canShoot() &&
-			(GameManager::instance().getLevelName() != "Introduce" || GameManager::instance().getEnemy()->isDestroyed())) {
-			tempOwner->setArrow(true);
+			(GameManager::instance().getLevelName() != "Introduce" || tempOwner->getCheckpoint() > 2)) {
 			tempOwner->setShoot(false);
-			count = 0;
+			tempOwner->setAttackCycle(0);
 			shoot(deltaTime);
 		}
 		if (!tempOwner->canShoot()) {
@@ -111,12 +123,14 @@ void ThaliaController::loading(const float &deltaTime) {
 
 void ThaliaController::attack(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<Thalia*>(owner);
-	if (GameManager::instance().getLevel()->existCharacter(GameManager::instance().getEnemy())) {
-		if (tempOwner->getSprite().getGlobalBounds().intersects(GameManager::instance().getEnemy()->getSprite().getGlobalBounds())) {
-			GameManager::instance().getEnemy()->setHealth(GameManager::instance().getEnemy()->getHealthPoint() - tempOwner->getDamage());
-		}
-		if (GameManager::instance().getEnemy()->getHealthPoint() <= 0) {
-			GameManager::instance().getEnemy()->setDestroyed(true);
+	for (auto* enemy : GameManager::instance().getLevel()->getEnemies()) {
+		if (GameManager::instance().getLevel()->existCharacter(enemy)) {
+			if (tempOwner->getSprite().getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds())) {
+				enemy->setHealth(enemy->getHealthPoint() - tempOwner->getDamage());
+			}
+			if (enemy->getHealthPoint() <= 0) {
+				enemy->setDestroyed(true);
+			}
 		}
 	}
 	tempOwner->incrementAttackCycle();
@@ -173,44 +187,14 @@ void ThaliaController::fall(const float& deltaTime) {
 
 void ThaliaController::shoot(const float& deltaTime) {
 	auto* tempOwner = dynamic_cast<Thalia*>(owner);
-	if (count == 0) {
-		auto* arrow = new ProjectTile(tempOwner->direction(), true);
+		
+	if (tempOwner->getAttackCycle() == 16) {
+		auto* arrow = new ProjectTile(tempOwner->direction(), 1 ,tempOwner->getLocation());
 		GameManager::instance().getLevel()->addCharacter(arrow);
 	}
 
-	count++;
-	if (count == 20) {
+	tempOwner->incrementAttackCycle();
+	if (tempOwner->getAttackCycle() == 27) {
 		tempOwner->setShoot(true);
 	}
-}
-
-
-void ThaliaController::moveLeft(const float& delta) {
-	auto* tempOwner = dynamic_cast<Thalia*>(owner);
-	owner->move(grim::Vector2(-delta, 0));
-	owner->moveView(grim::Vector2(-delta, 0));
-	if (tempOwner->isCollidingWithAnything()) {
-		owner->move(grim::Vector2(delta, 0));
-		owner->moveView(grim::Vector2(delta, 0));
-	}
-	GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
-	tempOwner->incrementMoveFlag();
-	if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
-		tempOwner->setMoveFlag();
-	tempOwner->setSprite(true);
-}
-
-void ThaliaController::moveRight(const float& delta) {
-	auto* tempOwner = dynamic_cast<Thalia*>(owner);
-	owner->move(grim::Vector2(delta, 0));
-	owner->moveView(grim::Vector2(delta, 0));
-	if (tempOwner->isCollidingWithAnything()) {
-		owner->move(grim::Vector2(-delta, 0));
-		owner->moveView(grim::Vector2(-delta, 0));
-	}
-	GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
-	tempOwner->incrementMoveFlag();
-	if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
-		tempOwner->setMoveFlag();
-	tempOwner->setSprite(false);
 }

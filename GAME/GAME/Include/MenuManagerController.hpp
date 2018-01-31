@@ -3,7 +3,7 @@
 
 class MenuManagerController : public PlayerController {
 public:
-	MenuManagerController();
+	explicit MenuManagerController();
 	virtual void update(const float &deltaTime) override;
 
 private:

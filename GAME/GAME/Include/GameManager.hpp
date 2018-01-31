@@ -4,7 +4,6 @@
 #include "MenuManager.hpp"
 #include "Enemy.hpp"
 #include "Thalia.hpp"
-#include "GameMenu.hpp"
 
 class GameManager { // g³ówna klasa gry
 public:
@@ -30,7 +29,7 @@ public:
 	Status getStatus() const { return gameStatus; }
 	Level* getLevel() const { return currentLevel; }
 	Thalia* getPlayer() const { return player; }
-	Enemy* getEnemy() const { return enemy; }
+	Enemy* getEnemy(const int choose) const { return enemy[choose]; }
 
 	void runGame();
 	void setLevel(std::string levelContent, bool);
@@ -38,7 +37,7 @@ public:
 protected:
 	MenuManager* content;
 	Thalia* player;
-	Enemy* enemy;
+	Enemy* enemy[2];
 	Status gameStatus;
 	Level* currentLevel;
 private:

@@ -8,12 +8,7 @@ public:
 	virtual ~Player();
 	void resetController(PlayerController *controller);
 	void update(const float &deltaTime) override;
-	int getHealthPoint() const { return healthPoint; }
-	int getDamage() const { return damage; }
-	void setDamage(const int damage) { this->damage = damage; }
-	void setHealth(const int healthPoint) { this->healthPoint = healthPoint; }
 protected:
 	PlayerController* controller;
-	int healthPoint;
-	int damage;
+
 };

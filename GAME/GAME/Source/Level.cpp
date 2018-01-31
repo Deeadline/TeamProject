@@ -1,6 +1,7 @@
 #include "../Include/Level.hpp"
 #include "../Include/ProjectTile.hpp"
 #include "../Include/Tile.hpp"
+#include "../Include/Enemy.hpp"
 
 Level::Level() {
 
@@ -40,6 +41,17 @@ std::vector<CharacterMechanics*> Level::getAllColliders() {
 	for (auto* actor : charactersCollector) {
 		auto* tile = dynamic_cast<Tile*>(actor);
 		if (tile) {
+			actors.push_back(actor);
+		}
+	}
+	return actors;
+}
+
+std::vector<CharacterMechanics*> Level::getEnemies() {
+	std::vector<CharacterMechanics*> actors;
+	for (auto* actor : charactersCollector) {
+		auto* enemy = dynamic_cast<Enemy*>(actor);
+		if (enemy) {
 			actors.push_back(actor);
 		}
 	}
