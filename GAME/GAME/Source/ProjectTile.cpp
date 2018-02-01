@@ -18,6 +18,12 @@ direction(direction), hit(false) {
 		ProjectTile::setDamage(1);
 		sprite.setTexture(*TextureManager::getTexture("RockThrowing"));
 		break;
+	case 3:
+		tile = TileType::snake;
+		ProjectTile::setLocation(location);
+		ProjectTile::setDamage(1);
+		sprite.setTexture(*TextureManager::getTexture("Snake"));
+		break;
 	}
 }
 
@@ -37,16 +43,22 @@ void ProjectTile::setLocation(const grim::Vector2& location) {
 		if(tile == 1) {
 			sprite.setPosition(location.x + 70, location.y - 110);
 		}
-		else {
+		else if(tile ==2){
 			sprite.setPosition(location.x + 50, location.y + 50);
+		}
+		else {
+			sprite.setPosition(location.x - 50, location.y + 10);
 		}
 	}
 	else {
 		if (tile == 1) {
 			sprite.setPosition(location.x - 70, location.y - 110);
 		}
-		else {
+		else if(tile==2){
 			sprite.setPosition(location.x - 50, location.y + 50);
+		}
+		else {
+			sprite.setPosition(location.x - 50, location.y + 10);
 		}
 	}
 }

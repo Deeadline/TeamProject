@@ -30,6 +30,9 @@ public:
 	Level* getLevel() const { return currentLevel; }
 	Thalia* getPlayer() const { return player; }
 	Enemy* getEnemy(const int choose) const { return enemy[choose]; }
+	bool checkDestroyed() const;
+	void addEnemy(int);
+
 
 	void runGame();
 	void setLevel(std::string levelContent, bool);
@@ -40,6 +43,7 @@ protected:
 	Enemy* enemy[2];
 	Status gameStatus;
 	Level* currentLevel;
+	std::vector<Enemy*> enemies;
 private:
 	GameManager();
 	GameManager(const GameManager&) = delete;

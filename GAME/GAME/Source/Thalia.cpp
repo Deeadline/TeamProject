@@ -22,7 +22,7 @@ Thalia::Thalia() : Player(new ThaliaController),
 	else {
 		sprite.setTexture(*TextureManager::getTexture("Thalia_BowWalking1"), true);
 		background.setTexture(*TextureManager::getTexture("gamebg6"));
-		width = 7505;
+		width = 7455;
 	}
 	font = GameManager::instance().getFont();
 	setTexts();
@@ -48,6 +48,9 @@ void Thalia::draw() {
 		}
 		if (GameManager::instance().getEnemy(1)->isDestroyed() && checkpoint == 3 && GameManager::instance().getLevelName() != "Medusa") {
 			background.setTexture(*TextureManager::getTexture("gamebg5"));
+		}
+		if(GameManager::instance().getLevelName() == "Medusa" && GameManager::instance().checkDestroyed()) {
+			GameManager::instance().addEnemy(3);
 		}
 		GameManager::instance().getWindow().draw(background);
 		GameManager::instance().getWindow().draw(sprite);

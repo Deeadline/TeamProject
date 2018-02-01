@@ -11,21 +11,11 @@ ThaliaController::ThaliaController() : velocity(0, 0), loadingIncrement(0), move
 void ThaliaController::update(const float &deltaTime) {
 	auto* tempOwner = dynamic_cast<Thalia*>(owner);
 	if (tempOwner->isMenu()) {
-//		{
-//			auto* gameMenu = new GameMenu();
-//			GameManager::instance().getLevel()->addCharacter(gameMenu);
-//			if (gameMenu->isDestroyed()) {
-//				GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
-//				tempOwner->setMove(true);
-//				tempOwner->setMenu(false);
-//			}
-//		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
 			GameManager::instance().getWindow().setView(GameManager::instance().getViewGame());
 			tempOwner->setMove(true);
 			tempOwner->setMenu(false);
 		}
-		
 	}
 	else {
 		if (tempOwner->canShoot()) {

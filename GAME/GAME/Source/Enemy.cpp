@@ -23,14 +23,14 @@ Enemy::Enemy(const int type) : Player(new EnemyController), moveFlag(0), cycle(0
 		Enemy::setDamage(1);
 		Enemy::setHealth(20);
 		break;
-//	case 3:
-//		enemyType = TypeEnemy::medusa;
-//		sprite.setTexture(*TextureManager::getTexture("Thalia_Walking1"));
-//		sprite.setScale(-1, 1);
-//		sprite.setOrigin(120, 180);
-//		Enemy::setDamage(1);
-//		Enemy::setHealth(20);
-//		break;
+	case 3:
+		enemyType = TypeEnemy::medusa;
+		sprite.setTexture(*TextureManager::getTexture("Medusa_Walking1"));
+		sprite.setScale(1, 1);
+		sprite.setOrigin(95, 180);
+		Enemy::setDamage(1);
+		Enemy::setHealth(100);
+		break;
 	}
 }
 
@@ -83,6 +83,31 @@ void Enemy::setSprite(const int dir) {
 			else {
 				sprite.setTexture(*TextureManager::getTexture("Rocky_Walking" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1)));
 				sprite.setScale(static_cast<float>(dir) * -1, 1);
+			}
+		}
+		else {
+			if (!shoot) {
+				if (attackCycle > 0 && attackCycle < 3)
+					sprite.setTexture(*TextureManager::getTexture("Medusa_Attack1"), true);
+				else if (attackCycle > 3 && attackCycle < 6)
+					sprite.setTexture(*TextureManager::getTexture("Medusa_Attack2"), true);
+				else if (attackCycle > 6 && attackCycle < 9)
+					sprite.setTexture(*TextureManager::getTexture("Medusa_Attack3"), true);
+				else if (attackCycle > 9 && attackCycle < 12)
+					sprite.setTexture(*TextureManager::getTexture("Medusa_Attack4"), true);
+				else if (attackCycle > 12 && attackCycle < 15)
+					sprite.setTexture(*TextureManager::getTexture("Medusa_Attack5"), true);
+				else if (attackCycle > 15) {
+					if (moveFlag < 15)
+						sprite.setTexture(*TextureManager::getTexture("Medusa1"));
+					else
+						sprite.setTexture(*TextureManager::getTexture("Medusa2"));
+				}
+				sprite.setScale(static_cast<float>(dir), 1);
+			}
+			else {
+				sprite.setTexture(*TextureManager::getTexture("Medusa_Walking" + std::to_string(static_cast<int>(moveFlag / 2.5) + 1)));
+				sprite.setScale(static_cast<float>(dir), 1);
 			}
 		}
 }

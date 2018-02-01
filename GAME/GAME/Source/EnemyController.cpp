@@ -24,17 +24,17 @@ void EnemyController::update(const float &deltaTime) {
 		else if (tempOwner->canMove() && tempOwner->getLocation().Distance(GameManager::instance().getPlayer()->getLocation()) > 650) {
 			if (tempOwner->getCycle() < 50) {
 				tempOwner->move(grim::Vector2(deltaTime*moveSpeed / 2, 0));
+				tempOwner->setSprite(1);
 				tempOwner->incrementMoveFlag();
 				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
 					tempOwner->setMoveFlag();
-				tempOwner->setSprite(1);
 			}
 			else {
 				tempOwner->move(grim::Vector2(-deltaTime*moveSpeed / 2, 0));
+				tempOwner->setSprite(-1);
 				tempOwner->incrementMoveFlag();
 				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
 					tempOwner->setMoveFlag();
-				tempOwner->setSprite(-1);
 			}
 			if (tempOwner->getCycle() == 100)
 				tempOwner->setCycle(0);
@@ -42,6 +42,11 @@ void EnemyController::update(const float &deltaTime) {
 				tempOwner->incrementCycle();
 		}
 		if (tempOwner->getLocation().Distance(GameManager::instance().getPlayer()->getLocation()) < 650 && tempOwner->getType() != 1) {
+			if (tempOwner->getType() == 3) {
+				tempOwner->incrementMoveFlag();
+				if (tempOwner->getMoveFlag() == static_cast<int>(1200.f / 40.f))
+					tempOwner->setMoveFlag();
+			}
 			if (tempOwner->canShoot()) {
 				tempOwner->setCanMove(false);
 				tempOwner->setCanShoot(false);
@@ -55,9 +60,17 @@ void EnemyController::shoot(const float& deltaTime) {
 	auto* tempOwner = dynamic_cast<Enemy*>(owner);
 
 	tempOwner->incrementAttackCycle();
-	if (tempOwner->getAttackCycle() == 18) {
-		auto* rock = new ProjectTile(tempOwner->getDirection(), 2, tempOwner->getLocation());
-		GameManager::instance().getLevel()->addCharacter(rock);
+	if (tempOwner->getType() == 2) {
+		if (tempOwner->getAttackCycle() == 18) {
+			auto* rock = new ProjectTile(tempOwner->getDirection(), 2, tempOwner->getLocation());
+			GameManager::instance().getLevel()->addCharacter(rock);
+		}
+	}
+	else {
+		if (tempOwner->getAttackCycle() == 15) {
+			auto* rock = new ProjectTile(tempOwner->getDirection(), 3, tempOwner->getLocation());
+			GameManager::instance().getLevel()->addCharacter(rock);
+		}
 	}
 	if(tempOwner->getAttackCycle()==80) {
 		tempOwner->setCanMove(true);

@@ -17,6 +17,7 @@ void GameManager::loadContent() {
 		TextureManager::loadTexture("Rock" + std::to_string(i), "../Release/Tile/theRock" + std::to_string(i) + ".png");
 	TextureManager::loadTexture("RockThrowing", "../Release/Tile/ThrowingRock.png");
 	TextureManager::loadTexture("Arrow", "../Release/Tile/Arrow.png");
+	TextureManager::loadTexture("Snake", "../Release/Tile/Snake.png");
 
 	//Load maps textures
 	TextureManager::loadTexture("menubg", "../Release/Screen/background.jpg");
@@ -31,10 +32,15 @@ void GameManager::loadContent() {
 	//Load player and enemy textures
 	TextureManager::loadTexture("Phil", "../Release/Characters/phil.png");
 
+	for(auto i=1; i<6; i++) {
+		TextureManager::loadTexture("Medusa_Attack" + std::to_string(i), "../Release/Characters/MedusaThrowingSnakes" + std::to_string(i) + ".png");
+	}
+
 	for (auto i = 1; i < 13; i++) {
 		TextureManager::loadTexture("Thalia_Walking" + std::to_string(i), "../Release/Thalia/NoBow/Thalia" + std::to_string(i) + ".png");
 		TextureManager::loadTexture("Thalia_BowWalking" + std::to_string(i), "../Release/Thalia/Bow/ThaliaWalk0" + std::to_string(i) + ".png");
 		TextureManager::loadTexture("Rocky_Walking" + std::to_string(i), "../Release/RockyWalk/RockyWalk" + std::to_string(i) + ".png");
+		TextureManager::loadTexture("Medusa_Walking" + std::to_string(i), "../Release/Characters/MedusaWalking" + std::to_string(i) + "-01.png");
 	}
 
 	for (auto i = 1; i<7; i++) {
@@ -44,6 +50,7 @@ void GameManager::loadContent() {
 	}
 
 	for (auto i = 0; i<2; i++) {
+		TextureManager::loadTexture("Medusa" + std::to_string(i + 1), "../Release/Characters/Medusa Standing" + std::to_string(i + 1) + ".png");
 		TextureManager::loadTexture("Thalia_AttackKnifeNoBow" + std::to_string(i + 1), "../Release/Thalia/NoBow/ThaliaKnife0" + std::to_string(i) + ".png");
 		TextureManager::loadTexture("Thalia_AttackKnifeBow" + std::to_string(i + 1), "../Release/Thalia/Bow/ThaliaKnife" + std::to_string(i) + ".png");
 	}
@@ -94,13 +101,27 @@ void GameManager::setLevel(const std::string levelContent, const bool wasMenu)
 		currentLevel->cleanLevel();
 		player = new Thalia();
 		currentLevel->addCharacter(player);
-		std::vector<Enemy*> enemies;
 		for(auto i =0; i<4; i++) {
 			enemies.push_back(new Enemy(2));
 			enemies[i]->setLocation(grim::Vector2(1000 + 1000 * i, 800));
 			currentLevel->addCharacter(enemies[i]);
 		}
 	}
+}
+
+bool GameManager::checkDestroyed() const {
+	for(auto* enemy : enemies) {
+		if (!enemy->isDestroyed())
+			return false;
+	}
+	return true;
+}
+
+void GameManager::addEnemy(const int type) {
+	auto* medusa = new Enemy(type);
+	enemies.push_back(medusa);
+	medusa->setLocation(grim::Vector2(6500, 800));
+	currentLevel->addCharacter(medusa);
 }
 
 void GameManager::runGame() {

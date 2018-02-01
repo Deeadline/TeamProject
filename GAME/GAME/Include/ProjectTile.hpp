@@ -9,7 +9,8 @@ public:
 	virtual void setDamage(const int damage) override;
 	enum TileType {
 		arrow = 1,
-		rock = 2
+		rock = 2,
+		snake = 3
 	};
 	TileType getType() const { return tile; }
 	bool isHit() const { return hit; }
